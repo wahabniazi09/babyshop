@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'package:drawer/routes/pages_routes.dart';
 import 'package:drawer/screens/onboardscreen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+  static const String routeName = "/SplashScreen";
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -17,14 +19,9 @@ class _SplashScreenState extends State<SplashScreen> {
     // Use WidgetsBinding to ensure context is available
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Timer(
-        const Duration(seconds: 3),
-        () => Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>  Onboardscreen(),
-          ),
-        ),
-      );
+          const Duration(seconds: 3),
+          () => Navigator.pushReplacementNamed(
+              context, PageRoutes.onboardscreen));
     });
   }
 

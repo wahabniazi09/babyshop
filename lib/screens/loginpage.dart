@@ -1,9 +1,10 @@
+import 'package:drawer/routes/pages_routes.dart';
 import 'package:drawer/screens/registerpage.dart';
 import 'package:flutter/material.dart';
 
 class Loginpage extends StatefulWidget {
   const Loginpage({super.key});
-
+  static const String routeName = "/Login";
   @override
   State<Loginpage> createState() => _LoginpageState();
 }
@@ -61,10 +62,17 @@ class _LoginpageState extends State<Loginpage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("E-Mail", style:  TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87,
-                          ),),
-                          const SizedBox(height: 5,),
+                          const Text(
+                            "E-Mail",
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
                           TextFormField(
                             // obscureText: obsureText,
                             decoration: const InputDecoration(
@@ -79,10 +87,17 @@ class _LoginpageState extends State<Loginpage> {
                                     borderSide:
                                         BorderSide(color: Colors.grey))),
                           ),
-                           const Text("Password", style:  TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87,
-                          ),),
-                          const SizedBox(height: 5,),
+                          const Text(
+                            "Password",
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
                           TextFormField(
                             // obscureText: obsureText,
                             decoration: const InputDecoration(
@@ -97,7 +112,9 @@ class _LoginpageState extends State<Loginpage> {
                                     borderSide:
                                         BorderSide(color: Colors.grey))),
                           ),
-                          const SizedBox(height: 10,)
+                          const SizedBox(
+                            height: 10,
+                          )
                         ],
                       )),
                 ),
@@ -144,10 +161,8 @@ class _LoginpageState extends State<Loginpage> {
                     // ),),
                     TextButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const RegisterPage()));
+                        Navigator.pushReplacementNamed(
+                            context, PageRoutes.registerpage);
                       },
                       child: const Text(
                         "Registeration",
@@ -176,5 +191,3 @@ class _LoginpageState extends State<Loginpage> {
     );
   }
 }
-
-
