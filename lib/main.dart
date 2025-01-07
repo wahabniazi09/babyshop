@@ -1,3 +1,4 @@
+import 'package:drawer/firebase_options.dart';
 import 'package:drawer/routes/pages_routes.dart';
 import 'package:drawer/screens/home_screen.dart';
 import 'package:drawer/screens/loginpage.dart';
@@ -5,10 +6,13 @@ import 'package:drawer/screens/onboardscreen.dart';
 import 'package:drawer/screens/registerpage.dart';
 import 'package:drawer/screens/splash_screen.dart';
 import 'package:drawer/screens/splashlogin.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 
-void main() {
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const BabyApp());
 }
 
@@ -24,7 +28,7 @@ class  BabyApp extends StatelessWidget {
       ),
       home: const SplashScreen(),
       routes: {
-        PageRoutes.loginpage : (context) => const Loginpage(),
+        PageRoutes.loginpage : (context) => const LoginPage(),
         PageRoutes.registerpage : (context) => const RegisterPage(),
         PageRoutes.onboardscreen : (context) =>  Onboardscreen(),
         PageRoutes.splashlogin : (context) => const Splashlogin(),

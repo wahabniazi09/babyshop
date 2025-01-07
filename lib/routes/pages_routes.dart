@@ -6,7 +6,7 @@ import 'package:drawer/screens/splash_screen.dart';
 import 'package:drawer/screens/splashlogin.dart';
 
 class PageRoutes {
-  static String loginpage = Loginpage.routeName;
+  static String loginpage = LoginPage.routeName;
   static String registerpage = RegisterPage.routeName;
   static String onboardscreen = Onboardscreen.routeName;
   static String splashscreen = SplashScreen.routeName;
