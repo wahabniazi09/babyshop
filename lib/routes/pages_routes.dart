@@ -1,9 +1,10 @@
-import 'package:drawer/screens/home_screen.dart';
-import 'package:drawer/screens/loginpage.dart';
-import 'package:drawer/screens/onboardscreen.dart';
-import 'package:drawer/screens/registerpage.dart';
-import 'package:drawer/screens/splash_screen.dart';
-import 'package:drawer/screens/splashlogin.dart';
+import 'package:drawer/screens/admin/admin_screen.dart';
+import 'package:drawer/screens/login_register/loginpage.dart';
+import 'package:drawer/screens/start_screen/onboardscreen.dart';
+import 'package:drawer/screens/login_register/registerpage.dart';
+import 'package:drawer/screens/start_screen/splash_screen.dart';
+import 'package:drawer/screens/start_screen/splashlogin.dart';
+import 'package:drawer/screens/users/user_screen.dart';
 
 class PageRoutes {
   static String loginpage = LoginPage.routeName;
@@ -11,5 +12,6 @@ class PageRoutes {
   static String onboardscreen = Onboardscreen.routeName;
   static String splashscreen = SplashScreen.routeName;
   static String splashlogin = Splashlogin.routeName;
-  static String homepage = HomeScreen.routeName;
+  static String userscreen = UserScreen.routeName;
+  static String adminscreen = AdminScreen.routeName;
 }

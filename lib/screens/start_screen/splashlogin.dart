@@ -1,6 +1,6 @@
 import 'package:drawer/routes/pages_routes.dart';
-import 'package:drawer/screens/loginpage.dart';
-import 'package:drawer/screens/registerpage.dart';
+import 'package:drawer/screens/login_register/loginpage.dart';
+import 'package:drawer/screens/login_register/registerpage.dart';
 import 'package:flutter/material.dart';
 
 class Splashlogin extends StatelessWidget {

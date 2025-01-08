@@ -1,6 +1,6 @@
 // import 'package:drawer/screens/loginpage.dart';
 import 'package:drawer/routes/pages_routes.dart';
-import 'package:drawer/screens/splashlogin.dart';
+import 'package:drawer/screens/start_screen/splashlogin.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 

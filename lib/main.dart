@@ -1,11 +1,12 @@
 import 'package:drawer/firebase_options.dart';
 import 'package:drawer/routes/pages_routes.dart';
-import 'package:drawer/screens/home_screen.dart';
-import 'package:drawer/screens/loginpage.dart';
-import 'package:drawer/screens/onboardscreen.dart';
-import 'package:drawer/screens/registerpage.dart';
-import 'package:drawer/screens/splash_screen.dart';
-import 'package:drawer/screens/splashlogin.dart';
+import 'package:drawer/screens/admin/admin_screen.dart';
+import 'package:drawer/screens/login_register/loginpage.dart';
+import 'package:drawer/screens/start_screen/onboardscreen.dart';
+import 'package:drawer/screens/login_register/registerpage.dart';
+import 'package:drawer/screens/start_screen/splash_screen.dart';
+import 'package:drawer/screens/start_screen/splashlogin.dart';
+import 'package:drawer/screens/users/user_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +34,8 @@ class  BabyApp extends StatelessWidget {
         PageRoutes.onboardscreen : (context) =>  Onboardscreen(),
         PageRoutes.splashlogin : (context) => const Splashlogin(),
         PageRoutes.splashscreen : (context) => const SplashScreen(),
-        PageRoutes.homepage : (context) => const HomeScreen(),
+        PageRoutes.userscreen : (context) => const UserScreen(),
+        PageRoutes.adminscreen : (context) => const AdminScreen(),
       },
     );
   }

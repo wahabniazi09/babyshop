@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:drawer/routes/pages_routes.dart';
-import 'package:drawer/screens/onboardscreen.dart';
+import 'package:drawer/screens/start_screen/onboardscreen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
