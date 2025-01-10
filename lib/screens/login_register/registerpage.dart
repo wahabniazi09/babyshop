@@ -31,7 +31,7 @@ class _RegisterPageState extends State<RegisterPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pushReplacementNamed(context, PageRoutes.splashlogin);
           },
         ),
       ),
@@ -100,22 +100,22 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  if(showDropdown)
-                  DropdownButtonFormField(
-                      value: SelectedRole,
-                      decoration: const InputDecoration(
-                          labelText: 'Role', border: OutlineInputBorder()),
-                      items: ["Admin", "User"].map((role) {
-                        return DropdownMenuItem(
-                          value: role,
-                          child: Text(role),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          SelectedRole = newValue!;
-                        });
-                      }),
+                  if (showDropdown)
+                    DropdownButtonFormField(
+                        value: SelectedRole,
+                        decoration: const InputDecoration(
+                            labelText: 'Role', border: OutlineInputBorder()),
+                        items: ["Admin", "User"].map((role) {
+                          return DropdownMenuItem(
+                            value: role,
+                            child: Text(role),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            SelectedRole = newValue!;
+                          });
+                        }),
                   isLoading
                       ? const Center(
                           child: CircularProgressIndicator(),

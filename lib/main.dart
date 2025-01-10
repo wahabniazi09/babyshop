@@ -24,6 +24,7 @@ class  BabyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      initialRoute: Onboardscreen.routeName,
       theme: ThemeData(
         primarySwatch: Colors.lightBlue
       ),

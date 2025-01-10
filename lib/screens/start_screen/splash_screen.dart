@@ -12,18 +12,18 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
+  // @override
+  // void initState() {
+  //   super.initState();
 
-    // Use WidgetsBinding to ensure context is available
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Timer(
-          const Duration(seconds: 3),
-          () => Navigator.pushReplacementNamed(
-              context, PageRoutes.onboardscreen));
-    });
-  }
+  //   // Use WidgetsBinding to ensure context is available
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     Timer(
+  //         const Duration(seconds: 3),
+  //         () => Navigator.pushReplacementNamed(
+  //             context, PageRoutes.onboardscreen));
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {

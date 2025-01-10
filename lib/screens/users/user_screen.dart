@@ -1,10 +1,31 @@
 import 'package:drawer/routes/pages_routes.dart';
 import 'package:drawer/services/auth_hepler.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class UserScreen extends StatelessWidget {
+class UserScreen extends StatefulWidget {
   const UserScreen({super.key});
   static const String routeName = "/UserPage";
+
+  @override
+  State<UserScreen> createState() => _UserScreenState();
+}
+
+class _UserScreenState extends State<UserScreen> {
+  String? uid;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      Navigator.pushReplacementNamed(context, PageRoutes.loginpage);
+    } else {
+      setState(() {
+        uid = user.uid;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

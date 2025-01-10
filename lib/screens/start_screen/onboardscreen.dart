@@ -1,19 +1,33 @@
-// import 'package:drawer/screens/loginpage.dart';
-import 'package:drawer/routes/pages_routes.dart';
-import 'package:drawer/screens/start_screen/splashlogin.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:drawer/routes/pages_routes.dart';
 
-class Onboardscreen extends StatelessWidget {
+class Onboardscreen extends StatefulWidget {
   static const String routeName = "/OnBoardScreen";
-
-  final introkey = GlobalKey<IntroductionScreenState>();
 
   Onboardscreen({super.key});
 
   @override
+  State<Onboardscreen> createState() => _OnboardscreenState();
+}
+
+class _OnboardscreenState extends State<Onboardscreen> {
+  final introkey = GlobalKey<IntroductionScreenState>();
+  String? uid;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      Navigator.pushReplacementNamed(context, PageRoutes.loginpage);
+    } 
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // ignore: unused_local_variable
     const pageDecoration = PageDecoration(
       titleTextStyle: TextStyle(
         fontSize: 28,
@@ -24,6 +38,7 @@ class Onboardscreen extends StatelessWidget {
       pageColor: Colors.white,
       imagePadding: EdgeInsets.zero,
     );
+
     return IntroductionScreen(
       key: introkey,
       globalBackgroundColor: Colors.white,
@@ -39,7 +54,7 @@ class Onboardscreen extends StatelessWidget {
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: 'Dicount',
+          title: 'Discount',
           body:
               "Who doesn't love a great deal? Grab your favorites now at unbeatable discounts! Because saving money while shopping smart is the ultimate win-win! 🛍️💰",
           image: Image.asset(
@@ -51,7 +66,7 @@ class Onboardscreen extends StatelessWidget {
         PageViewModel(
           title: 'Delivery',
           body:
-              "Fast, reliable, and hassle-free delivery,right to your doorstep! Shop from anywhere and let us bring convenience to you. 🚚📦",
+              "Fast, reliable, and hassle-free delivery, right to your doorstep! Shop from anywhere and let us bring convenience to you. 🚚📦",
           image: Image.asset(
             "images/shop1.png",
             width: 200,
@@ -64,9 +79,8 @@ class Onboardscreen extends StatelessWidget {
             ),
             child: ElevatedButton(
               onPressed: () {
-                            Navigator.pushReplacementNamed(context, PageRoutes.splashlogin);
+                Navigator.pushReplacementNamed(context, PageRoutes.splashlogin);
               },
-              // ignore: sort_child_properties_last
               child: const Text(
                 "Let's Shop",
                 style: TextStyle(fontSize: 20),
