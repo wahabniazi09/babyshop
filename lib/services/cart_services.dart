@@ -86,7 +86,6 @@ class CartServices {
       product.add({
         'qty': doc['qty'],
         'title': doc['title'],
-        'vendor_id': doc['vendor_id'],
         'tprice': doc['tprice'],
       });
     }

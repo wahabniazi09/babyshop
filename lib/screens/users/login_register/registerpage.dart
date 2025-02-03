@@ -114,12 +114,15 @@ class _RegisterPageState extends State<RegisterPage> {
                                 setState(() {
                                   isLoading = true;
                                 });
-                                    await authenticationHelper
-                                        .signUp(
+
+                                UserCredential? userCredential =
+                                    await authenticationHelper.signUp(
                                   email: emailController.text,
                                   password: passwordController.text,
-                                ).then((value) {
-                                  return authenticationHelper.storeUserData(
+                                );
+
+                                if (userCredential != null) {
+                                  await authenticationHelper.storeUserData(
                                     name: namecontroller.text,
                                     email: emailController.text,
                                     password: passwordController.text,
@@ -127,22 +130,30 @@ class _RegisterPageState extends State<RegisterPage> {
                                     address: addressController.text,
                                     role: SelectedRole,
                                   );
-                                }).then((value) {
+
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                         content: Text('Signup Successful')),
                                   );
+
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => const Home()),
-                                  );
-                                });
+                                  ).then((_) {
+                                    setState(() {});
+                                  });
+                                }
+                              } catch (e) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text(
+                                          'Signup Failed: ${e.toString()}')),
+                                );
+                              } finally {
                                 setState(() {
                                   isLoading = false;
                                 });
-                              } on FirebaseAuthException catch (e) {
-                                e.toString();
                               }
                             }),
                   ),

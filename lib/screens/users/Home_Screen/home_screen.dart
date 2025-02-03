@@ -362,8 +362,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Image.memory(
                                       base64Decode(
                                           allProducts[index]['p_image'][0]),
-                                      width: 150,
-                                      height: 150,
+                                      width: 100,
+                                      height: 100,
                                       fit: BoxFit.cover),
                                   const Spacer(),
                                   Text("${allProducts[index]['p_name']}",

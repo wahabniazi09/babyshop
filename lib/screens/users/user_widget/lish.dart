@@ -1,4 +1,5 @@
 import 'package:drawer/consts/consts.dart';
+import 'package:flutter/material.dart';
 
 const socialIconLists = [icFacebookLogo, icGoogleLogo];
 
@@ -43,3 +44,7 @@ const paymentMethood = ['Cash On Delivery', 'Jaaz Cash', 'Easy Paisa'];
 
 const profileButtonList = ['My Orders', 'My Wishlist'];
 const profileButtonIcon = [icOrders, icHeart];
+
+
+const AdminButtonList = ['Shop Setting', 'All Users'];
+ const AdminButtonIcon = [Icons.settings, Icons.verified_user];

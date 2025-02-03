@@ -41,14 +41,12 @@ class ProductServices {
     totalprice.value = price * quantity.value;
   }
 
-  addToCart({title, img, sellername, qty, tprice, venderId}) async {
+  addToCart({title, img, qty, tprice}) async {
     await firestore.collection(cartsCollection).doc().set({
       'title': title,
       'img': img,
-      'sellername': sellername,
       'qty': qty,
       'tprice': tprice,
-      'vendor_id': venderId,
       'added_by': currentUser!.uid
     }).catchError((e) {
       e.toString();

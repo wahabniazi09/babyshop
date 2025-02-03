@@ -36,6 +36,10 @@ class firestoreService {
         .snapshots();
   }
 
+  static getAllOrder() {
+    return firestore.collection(ordersCollection).snapshots();
+  }
+
   static getWishlist() {
     return firestore
         .collection(productsCollection)
@@ -84,8 +88,6 @@ class firestoreService {
   }
 
   static searchProducts(title) {
-    return firestore
-        .collection(productsCollection)
-        .get();
+    return firestore.collection(productsCollection).get();
   }
 }

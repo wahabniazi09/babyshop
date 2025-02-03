@@ -32,21 +32,27 @@ class AuthenticationHelper {
     return userCredential;
   }
 
-  Future signout() async {
+  signout() async {
     await auth.signOut();
   }
 
- storeUserData({
-  required String name,
-  required String email,
-  required String password,
-  required String phone,
-  required String address,
-  required String role,
-}) async {
+  storeUserData({
+    required String name,
+    required String email,
+    required String password,
+    required String phone,
+    required String address,
+    required String role,
+  }) async {
+    final user = auth.currentUser;
+    if (user == null) return;
 
-      DocumentReference store = firestore.collection(userCollection).doc(currentUser!.uid);
+    DocumentReference store =
+        firestore.collection(userCollection).doc(user.uid);
 
+    DocumentSnapshot doc = await store.get();
+
+    if (!doc.exists) {
       await store.set({
         'name': name,
         'email': email,
@@ -54,13 +60,14 @@ class AuthenticationHelper {
         'phone': phone,
         'address': address,
         'role': role,
-        'id': currentUser!.uid,
+        'id': user.uid,
         'imageurl': '',
         'cart_count': "00",
         'wishlist_count': "00",
         'order_count': "00",
-      });   
-}
+      });
+    }
+  }
 
   changeAuthPassword({email, password, newpassword}) async {
     final cred = EmailAuthProvider.credential(email: email, password: password);

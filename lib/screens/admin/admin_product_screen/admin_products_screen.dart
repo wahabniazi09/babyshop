@@ -1,20 +1,50 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drawer/consts/colors.dart';
+import 'package:drawer/consts/consts.dart';
 import 'package:drawer/consts/images.dart';
 import 'package:drawer/consts/styles.dart';
+import 'package:drawer/screens/admin/admin_product_screen/add_product.dart';
+import 'package:drawer/screens/admin/admin_product_screen/admin_product_details.dart';
+import 'package:drawer/screens/admin/admin_product_screen/update_product.dart';
+import 'package:drawer/services/adminproduct_services.dart';
+import 'package:drawer/services/firestore_services.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
-class AdminProductsScreen extends StatelessWidget {
+class AdminProductsScreen extends StatefulWidget {
   const AdminProductsScreen({super.key});
+
+  @override
+  State<AdminProductsScreen> createState() => _AdminProductsScreenState();
+}
+
+class _AdminProductsScreenState extends State<AdminProductsScreen> {
+  var controlller = AdminproductServices();
+
+  List popupmenulist = ["Featured", "Edit", "Deleted"];
+  List popupmenuIcons = [Icons.favorite, Icons.edit, Icons.delete];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
+        onPressed: () async {
+          await controlller.getcategory();
+          controlller.populateCategoryList();
+
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const AddProduct()));
+        },
         backgroundColor: Colors.deepPurple[900],
-        child: const Icon(Icons.add,color: whiteColor,),
+        child: const Icon(
+          Icons.add,
+          color: whiteColor,
         ),
+      ),
       appBar: AppBar(
+        backgroundColor: whiteColor,
         automaticallyImplyLeading: false,
         title: const Text(
           'Products',
@@ -24,25 +54,136 @@ class AdminProductsScreen extends StatelessWidget {
           Text(intl.DateFormat('EEE, MMM d,' 'yy ').format(DateTime.now()))
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-              children: List.generate(30, (index)=> ListTile(
-                  leading: Image.asset(imgS1,width: 100,height: 100,fit: BoxFit.cover,),
-                  title: const Text('Product title',style: TextStyle(
-                    color: fontGrey,
-                    fontFamily: bold
-                  ),),
-                  subtitle: const Text('\$50',style: TextStyle(
-                    fontFamily: semibold,
-                    color: darkFontGrey
-                  ),),
-                )),
-          ),
-        ),
-      ),
+      body: StreamBuilder(
+          stream: firestoreService.getAllProducts(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+              return const Center(child: Text("No products available"));
+            }
+
+            var allProducts = snapshot.data!.docs;
+            return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Column(
+                    children: List.generate(
+                      allProducts.length,
+                      (index) => Card(
+                          child: ListTile(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AdminProductDetails(
+                                      title: allProducts[index]['p_name'],
+                                      data: allProducts[index])));
+                        },
+                        leading: Image.memory(
+                            base64Decode(allProducts[index]['p_image'][0]),
+                            width: 150,
+                            height: 150,
+                            fit: BoxFit.cover),
+                        title: Text(
+                          "${allProducts[index]['p_name']}",
+                          style: const TextStyle(
+                              color: fontGrey, fontFamily: bold),
+                        ),
+                        subtitle: Row(
+                          children: [
+                            Text(
+                              "\$${allProducts[index]['p_price']}",
+                              style: const TextStyle(
+                                  fontFamily: semibold, color: darkFontGrey),
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              allProducts[index]['isFeatured'] == true
+                                  ? 'Featured'
+                                  : '',
+                              style: const TextStyle(
+                                  fontFamily: semibold, color: Colors.green),
+                            ),
+                          ],
+                        ),
+                        trailing: PopupMenuButton<int>(
+                            onSelected: (int value) {
+                              switch (value) {
+                                case 0:
+                                  if (allProducts[index]['isFeatured'] ==
+                                      true) {
+                                    controlller
+                                        .removeFeatured(allProducts[index].id);
+                                  } else {
+                                    controlller
+                                        .addFeatured(allProducts[index].id);
+                                  }
+                                  break;
+                                case 1: // Edit
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context)=>UpdateProduct(productId: allProducts[index].id , productData: allProducts[index].data())));
+                                  break;
+                                case 2: // Delete
+                                  controlller
+                                      .removeProduct(allProducts[index].id);
+                                  break;
+                                default:
+                                  break;
+                              }
+                            },
+                            itemBuilder: (BuildContext context) => [
+                                  PopupMenuItem<int>(
+                                    value: 0,
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          popupmenuIcons[0],
+                                          color: allProducts[index]
+                                                      ['featured_id'] ==
+                                                  currentUser!.uid
+                                              ? Colors.green
+                                              : darkFontGrey,
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Text(allProducts[index]
+                                                    ['featured_id'] ==
+                                                currentUser!.uid
+                                            ? 'Remove Featured'
+                                            : popupmenulist[0]),
+                                      ],
+                                    ),
+                                  ),
+                                  PopupMenuItem<int>(
+                                    value: 1,
+                                    child: Row(
+                                      children: [
+                                        Icon(popupmenuIcons[1]),
+                                        const SizedBox(width: 8),
+                                        Text(popupmenulist[1]),
+                                      ],
+                                    ),
+                                  ),
+                                  PopupMenuItem<int>(
+                                    value: 2,
+                                    child: Row(
+                                      children: [
+                                        Icon(popupmenuIcons[2]),
+                                        const SizedBox(width: 8),
+                                        Text(popupmenulist[2]),
+                                      ],
+                                    ),
+                                  ),
+                                ]),
+                      )),
+                    ),
+                  ),
+                ));
+          }),
     );
   }
 }

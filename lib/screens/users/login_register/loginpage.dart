@@ -26,61 +26,58 @@ class _LoginPageState extends State<LoginPage> {
   final AuthenticationHelper authenticationHelper = AuthenticationHelper();
 
   void login() async {
-  setState(() {
-    isLoding = true;
-  });
+    setState(() {
+      isLoding = true;
+    });
 
-  await authenticationHelper
-      .signIn(email: emailController.text, password: passwordController.text)
-      .then((value) async {
-    if (value != null) {
-      String userId = value.user!.uid;
-      
-      // Fetch user role from Firestore
-      DocumentSnapshot userDoc = await firestore
-          .collection(userCollection)
-          .doc(userId)
-          .get();
-      
-      if (userDoc.exists) {
-        String role = userDoc['role']; // Get role from Firestore
+    await authenticationHelper
+        .signIn(email: emailController.text, password: passwordController.text)
+        .then((value) async {
+      if (value != null) {
+        String userId = value.user!.uid;
 
-        if (role == 'Admin') {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const AdminHome()));
-        } else{
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const  Home()));
+        DocumentSnapshot userDoc =
+            await firestore.collection(userCollection).doc(userId).get();
+
+        if (userDoc.exists) {
+          String role = userDoc['role']; 
+
+          if (role == 'Admin') {
+            Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const AdminHome()));
+            
+          } else {
+            Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Home()));
+          }
         }
+
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('Login Successful')));
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('Login Failed')));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const LoginPage()));
       }
+    });
 
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Login Successful')));
-    } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Login Failed')));
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const LoginPage()));
-    }
-  });
-
-  setState(() {
-    isLoding = false;
-  });
-}
-
-
-  @override
-  void initState() {
-    super.initState();
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      Future.delayed(Duration.zero, () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const Home()));
-      });
-    }
+    setState(() {
+      isLoding = false;
+    });
   }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   final user = FirebaseAuth.instance.currentUser;
+  //   if (user != null) {
+  //     Future.delayed(Duration.zero, () {
+  //       Navigator.push(
+  //           context, MaterialPageRoute(builder: (context) => const Home()));
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

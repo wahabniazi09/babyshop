@@ -113,12 +113,11 @@ class ProfileScreen extends StatelessWidget {
                           ),
                           onPressed: () async {
                             await AuthenticationHelper().signout();
-                            Navigator.pushAndRemoveUntil(
+                            Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => const LoginPage(),
                               ),
-                              (route) => false,
                             );
                           },
                           child: const Text(
