@@ -1,7 +1,10 @@
 import 'package:drawer/consts/colors.dart';
 import 'package:drawer/consts/styles.dart';
 import 'package:drawer/screens/users/orders_screen/components/orders_status.dart';
+import 'package:drawer/screens/users/orders_screen/orders_screen.dart';
+import 'package:drawer/screens/users/user_widget/beveled_button.dart';
 import 'package:drawer/screens/users/user_widget/order_placed_widget.dart';
+import 'package:drawer/services/adminproduct_services.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
@@ -11,6 +14,7 @@ class OrderDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var controller = AdminproductServices();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -84,42 +88,55 @@ class OrderDetails extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16.0, vertical: 8),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment:
+                            CrossAxisAlignment.start, // Align items properly
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Shipping Address',
-                                style: TextStyle(fontFamily: semibold),
-                              ),
-                              Text(
-                                '${data['order_name']}',
-                                style: const TextStyle(),
-                              ),
-                              Text(
-                                '${data['order_by_email']}',
-                                style: const TextStyle(),
-                              ),
-                              Text(
-                                '${data['order_by_address']}',
-                                style: const TextStyle(),
-                              ),
-                              Text(
-                                '${data['order_by_city']}',
-                                style: const TextStyle(),
-                              ),
-                              Text(
-                                '${data['order_by_phone']}',
-                                style: const TextStyle(),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 120,
+                          Expanded(
+                            // ✅ Expands the Shipping Address column
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'Shipping Address',
+                                  style: TextStyle(fontFamily: semibold),
+                                ),
+                                Text(
+                                  '${data['order_name']}',
+                                  style: const TextStyle(),
+                                  softWrap: true, // ✅ Ensures wrapping
+                                  overflow: TextOverflow.visible,
+                                ),
+                                Text(
+                                  '${data['order_by_email']}',
+                                  style: const TextStyle(),
+                                  softWrap: true,
+                                  overflow: TextOverflow.visible,
+                                ),
+                                Text(
+                                  '${data['order_by_address']}',
+                                  style: const TextStyle(),
+                                  softWrap: true,
+                                  overflow: TextOverflow.visible,
+                                ),
+                                Text(
+                                  '${data['order_by_city']}',
+                                  style: const TextStyle(),
+                                  softWrap: true,
+                                  overflow: TextOverflow.visible,
+                                ),
+                                Text(
+                                  '${data['order_by_phone']}',
+                                  style: const TextStyle(),
+                                  softWrap: true,
+                                  overflow: TextOverflow.visible,
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: 120, // Keeps the Total Amount section fixed
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Text(
                                   'Total Amount',
@@ -132,10 +149,10 @@ class OrderDetails extends StatelessWidget {
                                 ),
                               ],
                             ),
-                          )
+                          ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -179,7 +196,23 @@ class OrderDetails extends StatelessWidget {
                   },
                 ),
               ),
-              const Divider()
+              const Divider(),
+              SizedBox(
+                height: 40,
+                child: BeveledButton(
+                    title: 'Cancel Order',
+                    onTap: () {
+                      controller.removeOrders(data.id);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const OrdersScreem()));
+                    },
+                    width: MediaQuery.of(context).size.width),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
             ],
           ),
         ),

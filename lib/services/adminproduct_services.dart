@@ -71,4 +71,47 @@ class AdminproductServices {
   removeProduct(docID) async {
     await firestore.collection(productsCollection).doc(docID).delete();
   }
+
+   removeOrders(docID) async {
+    await firestore.collection(ordersCollection).doc(docID).delete();
+  }
+
+  addtopCategory(docID) async {
+    await firestore.collection(productsCollection).doc(docID).set(
+        {'TopCategory': true},
+        SetOptions(merge: true));
+  }
+
+  removetopCategory(docID) async {
+    await firestore
+        .collection(productsCollection)
+        .doc(docID)
+        .set({'TopCategory': false}, SetOptions(merge: true));
+  }
+
+  addtodaydeals(docID) async {
+    await firestore.collection(productsCollection).doc(docID).set(
+        {'TodayDeals': true},
+        SetOptions(merge: true));
+  }
+
+  removetodaydeals(docID) async {
+    await firestore
+        .collection(productsCollection)
+        .doc(docID)
+        .set({'TodayDeals': false}, SetOptions(merge: true));
+  }
+
+  addflashsale(docID) async {
+    await firestore.collection(productsCollection).doc(docID).set(
+        {'FlashSale': true},
+        SetOptions(merge: true));
+  }
+
+  removeflashsale(docID) async {
+    await firestore
+        .collection(productsCollection)
+        .doc(docID)
+        .set({'FlashSale': false}, SetOptions(merge: true));
+  }
 }

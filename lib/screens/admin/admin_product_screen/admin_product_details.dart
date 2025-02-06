@@ -3,6 +3,7 @@
   import 'package:drawer/consts/styles.dart';
   import 'package:drawer/screens/users/profile_Screen/profile_screen.dart';
   import 'package:drawer/services/product_services.dart';
+import 'package:flutter/foundation.dart';
   import 'package:flutter/material.dart';
   import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
   import 'package:drawer/consts/colors.dart';
@@ -44,10 +45,10 @@
                           height: 350,
                           child: Swiper(
                             itemCount: data['p_image'].length,
-                            autoplay: true,
+                            autoplay: false,
                             itemBuilder: (context, index) {
                               return Image.memory(
-                                base64Decode(data['p_image'][index]),
+                                base64Decode(data['p_image']),
                                 width: double.infinity,
                                 fit: BoxFit.cover,
                               );
@@ -95,7 +96,7 @@
                       // Item Price
                       Text(
                         data['p_price'] != null
-                            ? '\$${data['p_price']}'
+                            ? '${data['p_price']}'
                             : 'Price Not Available',
                         style: const TextStyle(
                           fontSize: 18,
@@ -148,7 +149,7 @@
                       ),
                       const SizedBox(height: 5),
                       Text(
-                        data['p_dec'] ?? 'This is a dummy description....',
+                        data['p_desc'] ?? 'This is a dummy description....',
                         style: const TextStyle(
                           color: darkFontGrey,
                           fontFamily: semibold,

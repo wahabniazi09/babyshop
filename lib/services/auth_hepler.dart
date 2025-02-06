@@ -1,11 +1,18 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:drawer/screens/users/Home_Screen/home.dart';
+import 'package:drawer/screens/users/login_register/loginpage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:drawer/consts/consts.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthenticationHelper {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  StreamSubscription<User?>? authSubscription;
 
   Future<UserCredential?> signIn({email, password}) async {
     UserCredential? userCredential;
@@ -30,10 +37,6 @@ class AuthenticationHelper {
       e.toString();
     }
     return userCredential;
-  }
-
-  signout() async {
-    await auth.signOut();
   }
 
   storeUserData({
@@ -76,5 +79,12 @@ class AuthenticationHelper {
     }).catchError((error) {
       error.toString();
     });
+  }
+
+  Future<void> logoutUser(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    currentUser = null;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
   }
 }

@@ -3,16 +3,25 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drawer/consts/colors.dart';
 import 'package:drawer/consts/consts.dart';
+import 'package:drawer/screens/admin/admin_home.dart';
 import 'package:drawer/screens/admin/admin_setting_screen/admin_edit_screen.dart';
+import 'package:drawer/screens/admin/admin_setting_screen/all_user_details.dart';
+import 'package:drawer/screens/users/Home_Screen/home.dart';
 import 'package:drawer/screens/users/login_register/loginpage.dart';
+import 'package:drawer/screens/users/login_register/registerpage.dart';
 import 'package:drawer/screens/users/user_widget/lish.dart';
 import 'package:drawer/services/auth_hepler.dart';
 import 'package:drawer/services/firestore_services.dart';
 import 'package:flutter/material.dart';
 
-class AdminSettingsScreen extends StatelessWidget {
+class AdminSettingsScreen extends StatefulWidget {
   const AdminSettingsScreen({super.key});
 
+  @override
+  State<AdminSettingsScreen> createState() => _AdminSettingsScreenState();
+}
+
+class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -47,31 +56,63 @@ class AdminSettingsScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 16.0, color: whiteColor),
               ),
               actions: [
-                IconButton(
+                if (currentUser != null) ...[
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    AdminEditScreen(data: data)));
+                      },
+                      icon: const Icon(
+                        Icons.edit,
+                        color: whiteColor,
+                      )),
+                  TextButton(
+                    onPressed: () async {
+                      await AuthenticationHelper().logoutUser(context);
+                      setState(() {
+                        currentUser = null; // User session clear
+                      });
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => const Home()),
+                        (route) => false,
+                      );
+                    },
+                    child: const Text(
+                      'Logout',
+                      style: TextStyle(color: whiteColor),
+                    ),
+                  ),
+                ] else ...[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginPage()));
+                    },
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(color: whiteColor),
+                    ),
+                  ),
+                  TextButton(
                     onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  AdminEditScreen(data: data)));
+                                  const RegisterPage())); // Ensure RegisterPage exists
                     },
-                    icon: const Icon(
-                      Icons.edit,
-                      color: whiteColor,
-                    )),
-                TextButton(
-                  onPressed: () async {
-                    await AuthenticationHelper().signout();
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoginPage()));
-                  },
-                  child: const Text(
-                    'Logout',
-                    style: TextStyle(color: whiteColor),
+                    child: const Text(
+                      'Register',
+                      style: TextStyle(color: whiteColor),
+                    ),
                   ),
-                ),
+                ]
               ],
             ),
             body: Column(
@@ -99,28 +140,52 @@ class AdminSettingsScreen extends StatelessWidget {
                     style: const TextStyle(color: whiteColor, fontFamily: bold),
                   ),
                   subtitle: Text("${data['email'] ?? 'No Email'}",
-                      style:
-                         const TextStyle(color: whiteColor, fontFamily: semibold)),
+                      style: const TextStyle(
+                          color: whiteColor, fontFamily: semibold)),
                 ),
                 const Divider(),
                 const SizedBox(
                   height: 10,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: List.generate(
-                        AdminButtonList.length,
-                        (index) => ListTile(
-                              leading: Icon(
-                                AdminButtonIcon[index],
-                                color: whiteColor,
-                              ),
-                              title: Text(
-                                AdminButtonList[index],
-                                style: TextStyle(color: whiteColor),
-                              ),
-                            )),
+                  padding: const EdgeInsets.all(12.0), // Slightly more padding
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(12), // Rounded corners
+                    ),
+                    elevation: 4, // Soft shadow effect
+                    color: whiteColor, // Dark background for contrast
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 16),
+                      leading: const CircleAvatar(
+                        backgroundColor: Colors.black,
+                        child: Icon(Icons.verified_user_rounded,
+                            color: Colors.white),
+                      ),
+                      title: const Text(
+                        "All Users",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      trailing: const Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.black,
+                        size: 18,
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AllUserDetails(),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 )
               ],

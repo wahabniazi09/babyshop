@@ -88,6 +88,7 @@ class _EditDetailState extends State<EditDetail> {
                   title: "Change",
                   onTap: () async {
                     await changeImage();
+                    await updateProfileImage();
                     setState(() {}); // Trigger a rebuild to update the UI
                   },
                   width: 130,
@@ -123,7 +124,7 @@ class _EditDetailState extends State<EditDetail> {
                         )
                       : BeveledButton(
                           title: 'Change Data',
-                          onTap: () => addData(context),
+                          onTap: () => updateUserDetails(context),
                           width: 180,
                         ),
                 ),
@@ -135,21 +136,21 @@ class _EditDetailState extends State<EditDetail> {
     );
   }
 
-  Future<void> addData(BuildContext context) async {
+  /// 📌 **Method: Sirf Profile Image Update Karega**
+  Future<void> updateProfileImage() async {
     try {
       if ((kIsWeb && profileImageWeb == null) ||
           (!kIsWeb && profileImagePath == null)) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             backgroundColor: Colors.red,
-            content: Text(
-              'Please select an image',
-              style: TextStyle(fontSize: 18),
-            ),
+            content:
+                Text('Please select an image', style: TextStyle(fontSize: 18)),
           ),
         );
         return;
       }
+
       setState(() {
         isLoading = true;
       });
@@ -161,75 +162,88 @@ class _EditDetailState extends State<EditDetail> {
         base64image = base64Encode(File(profileImagePath!).readAsBytesSync());
       }
 
-      if (widget.data['password'] == oldpassController.text) {
-        await AuthenticationHelper().changeAuthPassword(
-          email:widget.data['email'],
-          password: oldpassController.text,
-          newpassword: newPassController.text
-        );
-
-        final userData = {
-          "name": nameController.text,
-          "password": newPassController.text,
-          "imageurl": base64image,
-        };
-        await FirebaseFirestore.instance
-            .collection(userCollection)
-            .doc(currentUser!.uid)
-            .update(userData);
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              'Update password',
-              style: TextStyle(fontSize: 18),
-            ),
-          ),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              'Wrong password',
-              style: TextStyle(fontSize: 18),
-            ),
-          ),
-        );
-      }
+      await FirebaseFirestore.instance
+          .collection(userCollection)
+          .doc(currentUser!.uid)
+          .update({"imageurl": base64image});
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           backgroundColor: Colors.green,
-          content: Text(
-            'Details updated successfully!',
-            style: TextStyle(fontSize: 18),
-          ),
+          content: Text('Profile image updated successfully!',
+              style: TextStyle(fontSize: 18)),
         ),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Colors.red,
-          content: Text(
-            'Failed to update details: $e',
-            style: const TextStyle(fontSize: 18),
-          ),
+          content: Text('Failed to update image: $e',
+              style: const TextStyle(fontSize: 18)),
         ),
       );
     } finally {
-      // Stop loading
       setState(() {
         isLoading = false;
       });
     }
   }
 
+  /// 📌 **Method: Sirf User Details Update Karega**
+  Future<void> updateUserDetails(BuildContext context) async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      if (widget.data['password'] == oldpassController.text) {
+        await AuthenticationHelper().changeAuthPassword(
+            email: widget.data['email'],
+            password: oldpassController.text,
+            newpassword: newPassController.text);
+
+        await FirebaseFirestore.instance
+            .collection(userCollection)
+            .doc(currentUser!.uid)
+            .update({
+          "name": nameController.text,
+          "password": newPassController.text,
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: Colors.green,
+            content: Text('User details updated successfully!',
+                style: TextStyle(fontSize: 18)),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: Colors.red,
+            content: Text('Wrong password', style: TextStyle(fontSize: 18)),
+          ),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.red,
+          content: Text('Failed to update details: $e',
+              style: const TextStyle(fontSize: 18)),
+        ),
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  /// 📌 **Method: Image Select Karne ke liye**
   Future<void> changeImage() async {
     try {
       final picker = ImagePicker();
-      final pickedFile = await picker.pickImage(
-        source: ImageSource.gallery,
-      );
+      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
       if (pickedFile == null) return;
 

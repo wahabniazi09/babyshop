@@ -1,9 +1,12 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:drawer/screens/users/Category_Screen.dart/components/categories_details.dart';
 import 'package:drawer/screens/users/Category_Screen.dart/components/item_details.dart';
 import 'package:drawer/screens/users/Home_Screen/component/feature_button.dart';
 import 'package:drawer/screens/users/Home_Screen/component/seach_screen.dart';
+import 'package:drawer/screens/users/Home_Screen/flash_sale.dart';
+import 'package:drawer/screens/users/Home_Screen/today_deals.dart';
 import 'package:drawer/services/firestore_services.dart';
 import 'package:drawer/screens/users/user_widget/home_button.dart';
 import 'package:drawer/screens/users/user_widget/lish.dart';
@@ -41,14 +44,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     border: InputBorder.none,
                     suffixIcon: IconButton(
                         onPressed: () {
-                         if(searchController.text.isNotEmpty){
-                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SearchScreen(
-                                        title: searchController.text,
-                                      )));
-                         }
+                          if (searchController.text.isNotEmpty) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SearchScreen(
+                                          title: searchController.text,
+                                        )));
+                          }
                         },
                         icon: const Icon(Icons.search)),
                     filled: true,
@@ -93,10 +96,17 @@ class _HomeScreenState extends State<HomeScreen> {
                         : icFlashDeal, // Example icons
                     title: index == 0 ? 'Today Deal' : 'Flash Sale',
                     onTap: () {
-                      // Add functionality for the buttons
-                      print(index == 0
-                          ? 'Today Deal tapped!'
-                          : 'Flash Sale tapped!');
+                      index == 0
+                          ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      TodayDeals()))
+                          : Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      FlashSale()));
                     },
                   ),
                 ),
@@ -104,31 +114,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(
               height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                2,
-                (index) => Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 10), // Adds spacing between buttons
-                  child: homeButton(
-                    width: 200,
-                    height: 140,
-                    iconPath: index == 0
-                        ? icTopCategories
-                        : index == 1
-                            ? icBrands
-                            : icTopSeller, // Example icons
-                    title: index == 0
-                        ? 'Top Categorires'
-                        : index == 1
-                            ? 'Brand'
-                            : 'Top saller',
-                    onTap: () {},
-                  ),
-                ),
-              ),
             ),
             const SizedBox(
               height: 20,
@@ -240,8 +225,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Image.memory(
-                                            base64Decode(featuredata[index]
-                                                ['p_image'][0]),
+                                            base64Decode(
+                                                featuredata[index]['p_image']),
                                             width: 150,
                                             height: 150,
                                             fit: BoxFit.cover,
@@ -256,7 +241,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                           const SizedBox(height: 5),
                                           Text(
-                                            "\$${featuredata[index]['p_price']}",
+                                            "${featuredata[index]['p_price']}",
                                             style: const TextStyle(
                                               fontFamily: bold,
                                               color: redColor,
@@ -276,21 +261,21 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 10,
             ),
-            Container(
-              height: 200,
-              child: Swiper(
-                itemCount: brandlist2.length,
-                autoplay: true,
-                itemBuilder: (context, index) {
-                  return Container(
-                    child: Image.asset(
-                      brandlist2[index],
-                      fit: BoxFit.cover,
-                    ),
-                  );
-                },
-              ),
-            ),
+            // Container(
+            //   height: 200,
+            //   child: Swiper(
+            //     itemCount: brandlist2.length,
+            //     autoplay: true,
+            //     itemBuilder: (context, index) {
+            //       return Container(
+            //         child: Image.asset(
+            //           brandlist2[index],
+            //           fit: BoxFit.cover,
+            //         ),
+            //       );
+            //     },
+            //   ),
+            // ),
             const SizedBox(
               height: 20,
             ),
@@ -361,10 +346,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 children: [
                                   Image.memory(
                                       base64Decode(
-                                          allProducts[index]['p_image'][0]),
-                                      width: 100,
-                                      height: 100,
-                                      fit: BoxFit.cover),
+                                          allProducts[index]['p_image']),
+                                      width: MediaQuery.of(context).size.width,
+                                      height: 200,
+                                      fit: BoxFit.fill),
                                   const Spacer(),
                                   Text("${allProducts[index]['p_name']}",
                                       style: const TextStyle(

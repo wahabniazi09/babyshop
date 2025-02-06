@@ -4,13 +4,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drawer/consts/consts.dart';
 import 'package:drawer/screens/admin/admin_product_screen/admin_product_details.dart';
 import 'package:drawer/screens/admin/admin_widget/dashboard_button.dart';
+import 'package:drawer/screens/users/login_register/loginpage.dart';
 import 'package:drawer/services/firestore_services.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
-class AdminHomeScreen extends StatelessWidget {
+class AdminHomeScreen extends StatefulWidget {
   const AdminHomeScreen({super.key});
 
+  @override
+  State<AdminHomeScreen> createState() => _AdminHomeScreenState();
+}
+
+class _AdminHomeScreenState extends State<AdminHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,94 +45,130 @@ class AdminHomeScreen extends StatelessWidget {
               var allProducts = snapshot.data!.docs;
               return Padding(
                 padding: const EdgeInsets.all(8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                child: FutureBuilder(
+                  future: firestoreService.getAdminCount(),
+                  builder: (context, AsyncSnapshot adminSnapshot) {
+                    if (adminSnapshot.connectionState ==
+                        ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (adminSnapshot.hasError) {
+                      return const Center(child: Text("Error loading data"));
+                    }
+                    var coutData = adminSnapshot.data;
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        dashboardButton(context,
-                            title: 'Products', count: '90', icon: icProducts),
-                        dashboardButton(context,
-                            title: 'Orders', count: '27', icon: icOrders),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        dashboardButton(context,
-                            title: 'Total Sales',
-                            count: '78888',
-                            icon: icWholeSale),
-                        dashboardButton(context,
-                            title: 'Wishlist', count: '76', icon: icAdd)
-                      ],
-                    ),
-                    const Divider(),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Text(
-                      'Popular Products',
-                      style: TextStyle(
-                          fontFamily: bold,
-                          fontSize: 20.0,
-                          color: darkFontGrey),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    ListView(
-                      shrinkWrap: true,
-                      physics: const BouncingScrollPhysics(),
-                      children: List.generate(
-                          allProducts.length,
-                          (index) => Card(
+                        // Dashboard Buttons Row 1
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            dashboardButton(
+                              context,
+                              title: 'Products',
+                              count: coutData[2].toString(),
+                              icon: icProducts,
+                            ),
+                            dashboardButton(
+                              context,
+                              title: 'Orders',
+                              count: coutData[0].toString(),
+                              icon: icOrders,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+
+                        // Dashboard Buttons Row 2
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            dashboardButton(
+                              context,
+                              title: 'Total Sales',
+                              count: coutData[3].toString(),
+                              icon: icWholeSale,
+                            ),
+                            dashboardButton(
+                              context,
+                              title: 'Wishlist',
+                              count: coutData[1].toString(),
+                              icon: icAdd,
+                            ),
+                          ],
+                        ),
+                        const Divider(),
+                        const SizedBox(height: 10),
+
+                        // Popular Products Title
+                        const Text(
+                          'Popular Products',
+                          style: TextStyle(
+                              fontFamily: bold,
+                              fontSize: 20.0,
+                              color: darkFontGrey),
+                        ),
+                        const SizedBox(height: 10),
+
+                        // Product List
+                        Expanded(
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: allProducts.length,
+                            itemBuilder: (context, index) {
+                              var product = allProducts[index];
+
+                              return Card(
                                 child: ListTile(
                                   onTap: () {
                                     Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                AdminProductDetails(
-                                                    title:
-                                                        "${allProducts[index]['p_name']}",
-                                                    data: allProducts[index])));
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            AdminProductDetails(
+                                          title: "${product['p_name']}",
+                                          data: product,
+                                        ),
+                                      ),
+                                    );
                                   },
                                   leading: Image.memory(
-                                      base64Decode(
-                                          allProducts[index]['p_image'][0]),
-                                      width: 150,
-                                      height: 150,
-                                      fit: BoxFit.cover),
+                                    base64Decode(product['p_image']),
+                                    width: 50,
+                                    height: 50,
+                                    fit: BoxFit.cover,
+                                  ),
                                   title: Text(
-                                    "${allProducts[index]['p_name']}",
+                                    "${product['p_name']}",
                                     style: const TextStyle(
                                         color: fontGrey, fontFamily: bold),
                                   ),
                                   subtitle: Row(
                                     children: [
                                       Text(
-                                        "\$${allProducts[index]['p_price']}",
+                                        "${product['p_price']}",
                                         style: const TextStyle(
                                             fontFamily: semibold,
                                             color: darkFontGrey),
                                       ),
-                                      Text(
+                                      const SizedBox(width: 20),
+                                      const Text(
                                         "Featured",
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                             fontFamily: semibold,
                                             color: Colors.green),
                                       ),
                                     ],
                                   ),
                                 ),
-                              )),
-                    )
-                  ],
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               );
             }));

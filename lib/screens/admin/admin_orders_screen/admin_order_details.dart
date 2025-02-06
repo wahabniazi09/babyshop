@@ -102,11 +102,17 @@ class _AdminOrderDetailsState extends State<AdminOrderDetails> {
             }),
             buildSwitchTile('On Delivery', ondelivery, (value) {
               setState(() => ondelivery = value);
-              onchangeStatus(title: "order_on_delivery", docID: widget.data.id, status: value);
+              onchangeStatus(
+                  title: "order_on_delivery",
+                  docID: widget.data.id,
+                  status: value);
             }),
             buildSwitchTile('Delivered', delivered, (value) {
               setState(() => delivered = value);
-              onchangeStatus(title: "order_delivered", docID: widget.data.id, status: value);
+              onchangeStatus(
+                  title: "order_delivered",
+                  docID: widget.data.id,
+                  status: value);
             }),
           ],
         ),
@@ -119,7 +125,8 @@ class _AdminOrderDetailsState extends State<AdminOrderDetails> {
       activeColor: golden,
       value: value,
       onChanged: onChanged,
-      title: Text(title, style: const TextStyle(fontFamily: bold, color: darkFontGrey)),
+      title: Text(title,
+          style: const TextStyle(fontFamily: bold, color: darkFontGrey)),
     );
   }
 
@@ -144,53 +151,82 @@ class _AdminOrderDetailsState extends State<AdminOrderDetails> {
               d2: widget.data['shipping_method']),
           orderPlaceDetails(
               title1: 'Order Date',
-              d1: intl.DateFormat().add_yMd().format((widget.data['order_date'].toDate())),
+              d1: intl.DateFormat()
+                  .add_yMd()
+                  .format((widget.data['order_date'].toDate())),
               title2: 'Payment Method',
               d2: widget.data['payment_method']),
-          orderPlaceDetails(title1: 'Payment Status', d1: 'Unpaid', title2: 'Delivery Status', d2: 'Order Placed'),
+          orderPlaceDetails(
+              title1: 'Payment Status',
+              d1: 'Unpaid',
+              title2: 'Delivery Status',
+              d2: 'Order Placed'),
           buildShippingDetails(),
         ],
       ),
     );
   }
 
-  Widget buildShippingDetails() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
+ Widget buildShippingDetails() {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start, // Align to top
+      children: [
+        // Left Side: Shipping Details
+        Expanded(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Shipping Address', style: TextStyle(fontFamily: semibold)),
-              ...['order_name', 'order_by_email', 'order_by_address', 'order_by_city', 'order_by_phone']
-                  .map((field) => Text('${widget.data[field]}', style: const TextStyle()))
-                  .toList(),
+              const Text(
+                'Shipping Address',
+                style: TextStyle(fontFamily: semibold),
+              ),
+              const SizedBox(height: 4),
+              ...[
+                'order_name',
+                'order_by_email',
+                'order_by_address',
+                'order_by_city',
+                'order_by_phone'
+              ].map((field) => Text(
+                    '${widget.data[field]}',
+                    style: const TextStyle(overflow: TextOverflow.ellipsis), // Handle long text
+                    maxLines: 2, // Limit to 2 lines
+                  )),
             ],
           ),
-          SizedBox(
-            width: 120,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('Total Amount', style: TextStyle(fontFamily: semibold)),
-                Text('${widget.data['total_amount']}',
-                    style: const TextStyle(color: redColor, fontFamily: bold)),
-              ],
-            ),
+        ),
+
+        // Right Side: Total Amount
+        SizedBox(
+          width: 120, // Fixed width for total amount section
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Total Amount',
+                style: TextStyle(fontFamily: semibold),
+              ),
+              Text(
+                '${widget.data['total_amount']}',
+                style: const TextStyle(color: redColor, fontFamily: bold),
+              ),
+            ],
           ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
 
   Widget buildOrderedProductsList() {
     return Column(
       children: [
         const Center(
           child: Text('Ordered Product',
-              style: TextStyle(fontFamily: semibold, fontSize: 16, color: darkFontGrey)),
+              style: TextStyle(
+                  fontFamily: semibold, fontSize: 16, color: darkFontGrey)),
         ),
         const SizedBox(height: 10),
         Container(

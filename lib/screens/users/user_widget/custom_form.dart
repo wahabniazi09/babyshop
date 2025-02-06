@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget CustomTextField({String? label, String? hint, controller,ispass}) {
+Widget CustomTextField({String? label, String? hint, controller,ispass,validator}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -15,6 +15,7 @@ Widget CustomTextField({String? label, String? hint, controller,ispass}) {
         height: 5,
       ),
       TextFormField(
+        validator: validator,
         obscureText: ispass ,
           controller: controller,
           decoration: InputDecoration(

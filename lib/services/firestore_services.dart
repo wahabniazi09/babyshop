@@ -11,6 +11,10 @@ class firestoreService {
         .snapshots();
   }
 
+  static getAllUser() {
+    return firestore.collection(userCollection).snapshots();
+  }
+
   static getProduct(category) {
     return firestore
         .collection(productsCollection)
@@ -74,6 +78,45 @@ class firestoreService {
     return res;
   }
 
+  static Future<List<int>> getAdminCount() async {
+    var res = await Future.wait([
+      // Orders Count
+      firestore
+          .collection(ordersCollection)
+          .get()
+          .then((value) => value.docs.length),
+
+      // Wishlist Count
+      firestore
+          .collection(productsCollection)
+          .where('p_wishlist', isEqualTo: true)
+          .get()
+          .then((value) => value.docs.length),
+
+      // Products Count
+      firestore
+          .collection(productsCollection)
+          .get()
+          .then((value) => value.docs.length),
+
+      // Total Sales Calculation (Summing totalAmount from all orders)
+      firestore.collection(ordersCollection).get().then((value) {
+        int totalSales = 0;
+        for (var doc in value.docs) {
+          Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+
+          // Ensure totalAmount exists and is a number
+          if (data.containsKey('total_amount') && data['total_amount'] is num) {
+            totalSales += (data['total_amount'] as num).toInt();
+          }
+        }
+        return totalSales;
+      }),
+    ]);
+
+    return res.map((e) => e as int).toList(); // Ensure all results are int
+  }
+
   static Stream<QuerySnapshot> getAllProducts() {
     return FirebaseFirestore.instance
         .collection(productsCollection)
@@ -84,6 +127,20 @@ class firestoreService {
     return firestore
         .collection(productsCollection)
         .where('isFeatured', isEqualTo: true)
+        .get();
+  }
+
+  static gettodaydealsProducts() {
+    return firestore
+        .collection(productsCollection)
+        .where('TodayDeals', isEqualTo: true)
+        .get();
+  }
+
+  static getflashsaleProducts() {
+    return firestore
+        .collection(productsCollection)
+        .where('FlashSale', isEqualTo: true)
         .get();
   }
 

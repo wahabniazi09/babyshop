@@ -4,6 +4,7 @@ import 'package:drawer/screens/admin/admin_home.dart';
 import 'package:drawer/screens/users/login_register/loginpage.dart';
 import 'package:drawer/screens/users/Home_Screen/home.dart';
 import 'package:drawer/services/auth_hepler.dart';
+import 'package:drawer/services/firestore_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -15,42 +16,35 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  void onChangedScreen() {
-    Future.delayed(const Duration(seconds: 3), () {
-      auth.authStateChanges().listen((User? user) async {
-        if (user == null && mounted) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const LoginPage()),
-          );
-        } else {
-          // Fetch user role from Firestore
-          DocumentSnapshot userDoc = await firestore
-              .collection(userCollection)
-              .doc(user!.uid)
-              .get();
-
-          if (userDoc.exists) {
-            String role = userDoc['role']; // Get role from Firestore
-
-            if (role == 'Admin') {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const AdminHome()));
-            } else {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const Home()));
-            }
-          }
-        }
-      });
-    });
-  }
-
   @override
   void initState() {
     // TODO: implement initState
-    onChangedScreen();
     super.initState();
+    Future.delayed(const Duration(seconds: 3), () async {
+      var user = FirebaseAuth.instance.currentUser;
+      if (user == null && mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const Home()),
+        );
+      } else {
+        // Fetch user role from Firestore
+        DocumentSnapshot userDoc =
+            await firestore.collection(userCollection).doc(user!.uid).get();
+
+        if (userDoc.exists) {
+          String role = userDoc['role'];
+
+          if (role == 'Admin') {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const AdminHome()));
+          } else {
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => const Home()));
+          }
+        }
+      }
+    });
   }
 
   @override

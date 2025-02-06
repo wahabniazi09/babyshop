@@ -1,25 +1,30 @@
 import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drawer/consts/consts.dart';
+import 'package:drawer/screens/users/Home_Screen/home.dart';
 import 'package:drawer/screens/users/login_register/loginpage.dart';
+import 'package:drawer/screens/users/login_register/registerpage.dart';
 import 'package:drawer/screens/users/orders_screen/orders_screen.dart';
 import 'package:drawer/screens/users/profile_Screen/component/card_details.dart';
 import 'package:drawer/screens/users/profile_Screen/component/edit_detail.dart';
+import 'package:drawer/screens/users/user_widget/beveled_button.dart';
+import 'package:drawer/screens/users/user_widget/lish.dart';
 import 'package:drawer/services/auth_hepler.dart';
 import 'package:drawer/services/firestore_services.dart';
 import 'package:drawer/screens/users/user_widget/bg_widget.dart';
-import 'package:drawer/screens/users/user_widget/lish.dart';
 import 'package:drawer/screens/users/wishlist_screen/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    firestoreService.getCount();
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
 
+class _ProfileScreenState extends State<ProfileScreen> {
+  @override
+  Widget build(BuildContext context) {
     return bgWidget(
       child: Scaffold(
         body: StreamBuilder(
@@ -33,17 +38,45 @@ class ProfileScreen extends StatelessWidget {
               );
             }
 
-            // Check if no data is available
-            if (snapshot.data!.docs.isEmpty) {
-              return const Center(
-                child: Text(
-                  "No data available for this user",
-                  style: TextStyle(color: darkFontGrey, fontSize: 16),
+            // Agar user data nahi hai, to login/register dikhayein
+            if (snapshot.data!.docs.isEmpty || currentUser == null) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 40,
+                      child: BeveledButton(
+                        onTap: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
+                        },
+                        title: 'Login',
+                        width: MediaQuery.of(context).size.width - 20,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    SizedBox(
+                      height: 40,
+                      child: BeveledButton(
+                        onTap: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const RegisterPage()));
+                        },
+                        title: 'Register',
+                        width: MediaQuery.of(context).size.width - 20,
+                      ),
+                    ),
+                  ],
                 ),
               );
             }
 
-            // Fetch the first document
+            // User ka data
             var data = snapshot.data!.docs[0];
 
             return SafeArea(
@@ -68,9 +101,9 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ),
                     ),
+                    // Agar user logged in hai to profile show karein
                     Row(
                       children: [
-                        // Check if image URL is valid
                         data['imageurl'] == null || data['imageurl'] == ''
                             ? ClipOval(
                                 child: Image.asset(
@@ -112,12 +145,15 @@ class ProfileScreen extends StatelessWidget {
                             side: const BorderSide(color: whiteColor),
                           ),
                           onPressed: () async {
-                            await AuthenticationHelper().signout();
-                            Navigator.push(
+                            await AuthenticationHelper().logoutUser(context);
+                            setState(() {
+                              currentUser = null; 
+                            });
+                            Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const LoginPage(),
-                              ),
+                                  builder: (context) => const Home()),
+                              (route) => false,
                             );
                           },
                           child: const Text(
@@ -133,8 +169,7 @@ class ProfileScreen extends StatelessWidget {
                     const SizedBox(height: 20),
                     FutureBuilder(
                       future: firestoreService.getCount(),
-                      builder:
-                          (context, AsyncSnapshot snapshot) {
+                      builder: (context, AsyncSnapshot snapshot) {
                         if (!snapshot.hasData) {
                           return const Center(
                             child: CircularProgressIndicator(),

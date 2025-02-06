@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drawer/screens/admin/admin_orders_screen/admin_order_details.dart';
+import 'package:drawer/services/adminproduct_services.dart';
 import 'package:drawer/services/firestore_services.dart';
 import 'package:flutter/material.dart';
 import 'package:drawer/consts/colors.dart';
@@ -13,8 +14,8 @@ class AdminOrderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var controller = AdminproductServices();
     return Scaffold(
-     
       appBar: AppBar(
         backgroundColor: whiteColor,
         automaticallyImplyLeading: false,
@@ -56,15 +57,19 @@ class AdminOrderScreen extends StatelessWidget {
                               margin: const EdgeInsets.only(bottom: 4),
                               child: ListTile(
                                 onTap: () {
-                                   Navigator.push(
-                            context, MaterialPageRoute(builder: (context)=> AdminOrderDetails(data: data[index])));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              AdminOrderDetails(
+                                                  data: data[index])));
                                 },
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12)),
                                 tileColor: lightGrey,
                                 title: Text(
                                   data[index]['order_code'].toString(),
-                                   style: TextStyle(
+                                  style: TextStyle(
                                       color: Colors.deepPurple[900],
                                       fontFamily: bold),
                                 ),
@@ -81,23 +86,24 @@ class AdminOrderScreen extends StatelessWidget {
                                         ),
                                         Text(
                                           intl.DateFormat('EEE, MMM d,' 'yy ')
-                                              .format((data[index]['order_date'].toDate())),
+                                              .format((data[index]['order_date']
+                                                  .toDate())),
                                           style: const TextStyle(
                                               fontFamily: bold,
                                               color: fontGrey),
                                         )
                                       ],
                                     ),
-                                   const Row(
+                                    const Row(
                                       children: [
                                         const Icon(
                                           Icons.payment,
                                           color: fontGrey,
                                         ),
-                                       SizedBox(
+                                        SizedBox(
                                           width: 20,
                                         ),
-                                       Text(
+                                        Text(
                                           'Unpaid',
                                           style: TextStyle(
                                               color: redColor,
@@ -107,11 +113,24 @@ class AdminOrderScreen extends StatelessWidget {
                                     )
                                   ],
                                 ),
-                                trailing: Text(
-                                  '${data[index]['total_amount']}',
-                                  style: TextStyle(
-                                      color: Colors.deepPurple[900],
-                                      fontSize: 16.0),
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    OutlinedButton(
+                                      onPressed: () {
+                                        controller.removeOrders(data[index].id);
+                                      },
+                                      child: const Text('Cancel Order'),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Text(
+                                      '${data[index]['total_amount']}',
+                                      style: TextStyle(
+                                        color: Colors.deepPurple[900],
+                                        fontSize: 16.0,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             )),

@@ -152,7 +152,7 @@ class _CategoriesDetailsState extends State<CategoriesDetails> {
                                           children: [
                                             Image.memory(
                                               base64Decode(
-                                                  data[index]['p_image'][0]),
+                                                  data[index]['p_image']),
                                               width: 200,
                                               height: 200,
                                               fit: BoxFit.cover,

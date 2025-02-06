@@ -1,4 +1,7 @@
+import 'package:drawer/consts/firebase_consts.dart';
+import 'package:drawer/screens/users/login_register/loginpage.dart';
 import 'package:drawer/screens/users/user_widget/lish.dart';
+import 'package:drawer/services/validation_services.dart';
 import 'package:flutter/material.dart';
 import 'package:drawer/consts/colors.dart';
 import 'package:drawer/consts/styles.dart';
@@ -13,6 +16,7 @@ class ShippingScreen extends StatelessWidget {
 
   final cartServices = CartServices();
   final productServices = ProductServices();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -45,43 +49,50 @@ class ShippingScreen extends StatelessWidget {
                 elevation: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "Shipping Information",
-                        style: TextStyle(
-                          fontFamily: bold,
-                          fontSize: 18,
-                          color: darkFontGrey,
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Shipping Information",
+                          style: TextStyle(
+                            fontFamily: bold,
+                            fontSize: 18,
+                            color: darkFontGrey,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 10),
-                      CustomTextField(
-                        hint: 'Enter your address',
-                        label: 'Address',
-                        controller: cartServices.addressController,
-                        ispass: false,
-                      ),
-                      CustomTextField(
-                        hint: 'Enter your city',
-                        label: 'City',
-                        controller: cartServices.cityController,
-                        ispass: false,
-                      ),
-                      CustomTextField(
-                        hint: 'Enter your state',
-                        label: 'State',
-                        controller: cartServices.stateController,
-                        ispass: false,
-                      ),
-                      CustomTextField(
-                        hint: 'Enter your phone',
-                        label: 'Phone',
-                        controller: cartServices.phoneController,
-                        ispass: false,
-                      ),
-                    ],
+                        const SizedBox(height: 10),
+                        CustomTextField(
+                          hint: 'Enter your address',
+                          label: 'Address',
+                          controller: cartServices.addressController,
+                          ispass: false,
+                          validator: validateAddress
+                        ),
+                        CustomTextField(
+                          hint: 'Enter your city',
+                          label: 'City',
+                          controller: cartServices.cityController,
+                          ispass: false,
+                          validator: (value) => validateField(value, "City")
+                        ),
+                        CustomTextField(
+                          hint: 'Enter your state',
+                          label: 'State',
+                          controller: cartServices.stateController,
+                          ispass: false,
+                          validator: (value) => validateField(value, "State")
+                        ),
+                        CustomTextField(
+                          hint: 'Enter your phone',
+                          label: 'Phone',
+                          controller: cartServices.phoneController,
+                          ispass: false,
+                          validator: validatePhoneNumber
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -180,60 +191,77 @@ class ShippingScreen extends StatelessWidget {
                         : BeveledButton(
                             title: 'Place The Order',
                             onTap: () async {
-                              // Check if address is filled
-                              if (cartServices.addressController.text.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
-                                        'Please fill in your shipping details.'),
-                                  ),
-                                );
-                                return;
-                              }
+                              if (!_formKey.currentState!.validate()) {
+                                  return;
+                                }
+                              if (currentUser == null) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const LoginPage()));
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text(
+                                      'Please Login first then add to place order..'),
+                                ));
+                              } else {
+                                // Check if address is filled
+                                if (cartServices
+                                    .addressController.text.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                          'Please fill in your shipping details.'),
+                                    ),
+                                  );
+                                  return;
+                                }
 
-                              // Start loading
-                              cartServices.isloading.value = true;
+                                // Start loading
+                                cartServices.isloading.value = true;
 
-                              try {
-                                // Ensure total price is calculated before order
-                                await cartServices.getProductDetails();
-                                cartServices.calculate(
-                                    cartServices.productSnapshot.docs);
+                                try {
+                                  // Ensure total price is calculated before order
+                                  await cartServices.getProductDetails();
+                                  cartServices.calculate(
+                                      cartServices.productSnapshot.docs);
 
-                                print(
-                                    "Total Price Before Order: ${cartServices.totalp.value}");
+                                  print(
+                                      "Total Price Before Order: ${cartServices.totalp.value}");
 
-                                // Place order logic
-                                await cartServices.placeOrder(
-                                  orderPaymentMethod: paymentMethood[
-                                      cartServices.paymentIndex.value],
-                                );
+                                  // Place order logic
+                                  await cartServices.placeOrder(
+                                    orderPaymentMethod: paymentMethood[
+                                        cartServices.paymentIndex.value],
+                                  );
 
-                                // Clear cart and navigate to home
-                                await cartServices.clearCart();
+                                  // Clear cart and navigate to home
+                                  await cartServices.clearCart();
 
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content:
-                                        Text('Your Order Placed Successfully.'),
-                                  ),
-                                );
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const Home(),
-                                  ),
-                                );
-                              } catch (e) {
-                                // Handle errors
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text('Error: $e'),
-                                  ),
-                                );
-                              } finally {
-                                // Stop loading
-                                cartServices.isloading.value = false;
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                          'Your Order Placed Successfully.'),
+                                    ),
+                                  );
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const Home(),
+                                    ),
+                                  );
+                                } catch (e) {
+                                  // Handle errors
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text('Error: $e'),
+                                    ),
+                                  );
+                                } finally {
+                                  // Stop loading
+                                  cartServices.isloading.value = false;
+                                }
                               }
                             },
                             width: MediaQuery.of(context).size.width - 40,
