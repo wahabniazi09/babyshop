@@ -354,7 +354,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           fontWeight: FontWeight.w600,
                                           color: Colors.black87)),
                                   const SizedBox(height: 5),
-                                  Text("\$${allProducts[index]['p_price']}",
+                                  Text("${allProducts[index]['p_price']}",
                                       style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.red)),
