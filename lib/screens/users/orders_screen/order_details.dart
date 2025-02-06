@@ -143,7 +143,7 @@ class OrderDetails extends StatelessWidget {
                                   style: TextStyle(fontFamily: semibold),
                                 ),
                                 Text(
-                                  '${data['total_amount']}',
+                                  'Rs: ${data['total_amount']}',
                                   style: const TextStyle(
                                       color: redColor, fontFamily: bold),
                                 ),
@@ -191,7 +191,7 @@ class OrderDetails extends StatelessWidget {
                       title1: orderItem['title'] ?? 'N/A',
                       d1: "${orderItem['qty'] ?? 0}x",
                       title2: 'Price',
-                      d2: orderItem['tprice'] ?? 'N/A',
+                      d2: "Rs: ${orderItem['tprice']}",
                     );
                   },
                 ),

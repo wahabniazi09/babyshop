@@ -73,7 +73,7 @@ class WishlistScreen extends StatelessWidget {
                             ),
                           ),
                           subtitle: Text(
-                            "${data[index]['p_price']}",
+                            "Rs: ${data[index]['p_price']}",
                             style: const TextStyle(fontFamily: semibold),
                           ),
                           trailing: IconButton(

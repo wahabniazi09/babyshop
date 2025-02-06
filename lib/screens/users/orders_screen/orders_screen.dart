@@ -53,7 +53,7 @@ class OrdersScreem extends StatelessWidget {
                         const TextStyle(color: redColor, fontFamily: semibold),
                   ),
                   subtitle: Text(
-                    data[index]['total_amount'].toString(),
+                    "Rs: ${data[index]['total_amount'].toString()}",
                     style: const TextStyle(fontFamily: bold),
                   ),
                   trailing: IconButton(

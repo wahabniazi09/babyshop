@@ -90,7 +90,7 @@ class AdminProductDetails extends StatelessWidget {
                     // Item Price
                     Text(
                       data['p_price'] != null
-                          ? '${data['p_price']}'
+                          ? 'Rs: ${data['p_price']}'
                           : 'Price Not Available',
                       style: const TextStyle(
                         fontSize: 18,

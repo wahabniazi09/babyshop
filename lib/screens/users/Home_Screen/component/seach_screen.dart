@@ -87,7 +87,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black87)),
                         const SizedBox(height: 5),
-                        Text("${filtered[index]['p_price']}",
+                        Text("Rs: ${filtered[index]['p_price']}",
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold, color: Colors.red)),
                       ],

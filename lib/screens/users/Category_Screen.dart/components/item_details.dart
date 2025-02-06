@@ -101,7 +101,7 @@ class ItemDetails extends StatelessWidget {
                     // Item Price
                     Text(
                       data['p_price'] != null
-                          ? '${data['p_price']}'
+                          ? 'Rs: ${data['p_price']}'
                           : 'Price Not Available',
                       style: const TextStyle(
                         fontSize: 18,
@@ -187,7 +187,7 @@ class ItemDetails extends StatelessWidget {
                                 .totalprice, // Listen to totalprice changes
                             builder: (context, totalPriceValue, child) {
                               return Text(
-                                '$totalPriceValue', // Display the updated total price
+                                'Rs: $totalPriceValue', // Display the updated total price
                                 style: const TextStyle(
                                   fontSize: 16,
                                   color: redColor,

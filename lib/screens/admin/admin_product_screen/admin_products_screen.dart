@@ -112,7 +112,7 @@ class _AdminProductsScreenState extends State<AdminProductsScreen> {
                       subtitle: Row(
                         children: [
                           Text(
-                            "${allProducts[index]['p_price']}",
+                            "Rs: ${allProducts[index]['p_price']}",
                             style: const TextStyle(
                               fontFamily: semibold,
                               color: darkFontGrey,

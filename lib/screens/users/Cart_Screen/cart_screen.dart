@@ -77,7 +77,7 @@ class CartScreen extends StatelessWidget {
                               ),
                             ),
                             subtitle: Text(
-                              "${data[index]['tprice']}",
+                              "Rs: ${data[index]['tprice']}",
                               style: const TextStyle(fontFamily: semibold),
                             ),
                             trailing: IconButton(
@@ -112,7 +112,7 @@ class CartScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          cartservices.totalp.value.toString(),
+                         "Rs: ${cartservices.totalp.value.toString()}",
                           style: const TextStyle(
                             fontFamily: semibold,
                             color: redColor,

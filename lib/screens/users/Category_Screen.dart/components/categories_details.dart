@@ -167,7 +167,7 @@ class _CategoriesDetailsState extends State<CategoriesDetails> {
                                             ),
                                             const SizedBox(height: 5),
                                             Text(
-                                              data[index]['p_price'],
+                                              "Rs: ${data[index]['p_price']}",
                                               style: const TextStyle(
                                                 fontFamily: bold,
                                                 color: redColor,

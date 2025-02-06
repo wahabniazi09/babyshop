@@ -122,7 +122,7 @@ class AdminOrderScreen extends StatelessWidget {
                                     ),
                                     const SizedBox(width: 10),
                                     Text(
-                                      '${data[index]['total_amount']}',
+                                      'Rs: ${data[index]['total_amount']}',
                                       style: TextStyle(
                                         color: Colors.deepPurple[900],
                                         fontSize: 16.0,

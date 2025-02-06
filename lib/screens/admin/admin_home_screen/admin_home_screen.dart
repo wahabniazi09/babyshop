@@ -85,7 +85,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                             dashboardButton(
                               context,
                               title: 'Total Sales',
-                              count: coutData[3].toString(),
+                              count: "Rs: ${coutData[3].toString()}",
                               icon: icWholeSale,
                             ),
                             dashboardButton(
@@ -146,7 +146,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                   subtitle: Row(
                                     children: [
                                       Text(
-                                        "${product['p_price']}",
+                                        "Rs: ${product['p_price']}",
                                         style: const TextStyle(
                                             fontFamily: semibold,
                                             color: darkFontGrey),
