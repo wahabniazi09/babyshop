@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:drawer/screens/users/Category_Screen.dart/components/categories_details.dart';
 import 'package:drawer/screens/users/Category_Screen.dart/components/item_details.dart';
 import 'package:drawer/screens/users/Home_Screen/component/feature_button.dart';
 import 'package:drawer/screens/users/Home_Screen/component/seach_screen.dart';
@@ -10,7 +9,6 @@ import 'package:drawer/screens/users/Home_Screen/today_deals.dart';
 import 'package:drawer/services/firestore_services.dart';
 import 'package:drawer/screens/users/user_widget/home_button.dart';
 import 'package:drawer/screens/users/user_widget/lish.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:drawer/consts/consts.dart';

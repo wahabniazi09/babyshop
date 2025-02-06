@@ -1,6 +1,5 @@
 import 'package:drawer/consts/consts.dart';
 import 'package:drawer/screens/users/Category_Screen.dart/components/categories_details.dart';
-import 'package:drawer/screens/users/Home_Screen/home.dart';
 import 'package:drawer/services/product_services.dart';
 import 'package:drawer/screens/users/user_widget/bg_widget.dart';
 import 'package:drawer/screens/users/user_widget/lish.dart';

@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drawer/consts/colors.dart';
 import 'package:drawer/consts/consts.dart';
-import 'package:drawer/screens/users/user_widget/beveled_button.dart';
 import 'package:drawer/screens/users/user_widget/custom_form.dart';
 import 'package:drawer/services/auth_hepler.dart';
 import 'package:flutter/foundation.dart';

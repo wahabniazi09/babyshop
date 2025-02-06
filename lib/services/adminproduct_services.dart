@@ -1,11 +1,9 @@
-import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drawer/consts/consts.dart';
 import 'package:drawer/model/category_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
 
 class AdminproductServices {
   // Controllers for input fields
@@ -20,6 +18,7 @@ class AdminproductServices {
   List<Category> category = [];
   List<String> pimageslinks = [];
 
+  // ignore: unnecessary_question_mark
   List<dynamic?> pimagelist = List.filled(3, null, growable: false);
 
   String categoryvalue = '';

@@ -1,11 +1,8 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:drawer/screens/users/Home_Screen/home.dart';
-import 'package:drawer/screens/users/login_register/loginpage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:drawer/consts/consts.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

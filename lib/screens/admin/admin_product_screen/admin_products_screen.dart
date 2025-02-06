@@ -1,9 +1,7 @@
 import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drawer/consts/colors.dart';
 import 'package:drawer/consts/consts.dart';
-import 'package:drawer/consts/images.dart';
 import 'package:drawer/consts/styles.dart';
 import 'package:drawer/screens/admin/admin_product_screen/add_product.dart';
 import 'package:drawer/screens/admin/admin_product_screen/admin_product_details.dart';

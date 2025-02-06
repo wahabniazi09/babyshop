@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drawer/consts/consts.dart';
 import 'package:drawer/screens/admin/admin_product_screen/admin_product_details.dart';
 import 'package:drawer/screens/admin/admin_widget/dashboard_button.dart';
-import 'package:drawer/screens/users/login_register/loginpage.dart';
 import 'package:drawer/services/firestore_services.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;

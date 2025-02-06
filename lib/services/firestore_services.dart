@@ -103,6 +103,7 @@ class firestoreService {
       firestore.collection(ordersCollection).get().then((value) {
         int totalSales = 0;
         for (var doc in value.docs) {
+          // ignore: unnecessary_cast
           Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
 
           // Ensure totalAmount exists and is a number
@@ -114,6 +115,7 @@ class firestoreService {
       }),
     ]);
 
+    // ignore: unnecessary_cast
     return res.map((e) => e as int).toList(); // Ensure all results are int
   }
 

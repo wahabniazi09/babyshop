@@ -4,8 +4,6 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drawer/consts/colors.dart';
 import 'package:drawer/consts/firebase_consts.dart';
-import 'package:drawer/consts/images.dart';
-import 'package:drawer/screens/users/profile_Screen/profile_screen.dart';
 import 'package:drawer/services/auth_hepler.dart';
 import 'package:drawer/screens/users/user_widget/beveled_button.dart';
 import 'package:drawer/screens/users/user_widget/bg_widget.dart';

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:drawer/consts/colors.dart';
-import 'package:drawer/services/adminproduct_services.dart';
 
 Widget productDropdown(
     String hint, List<String> list, String dropvalue, Function(String) onChanged) {

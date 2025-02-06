@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drawer/consts/colors.dart';
 import 'package:drawer/consts/consts.dart';
-import 'package:drawer/screens/users/orders_screen/components/orders_status.dart';
 import 'package:drawer/screens/users/user_widget/beveled_button.dart';
 import 'package:drawer/screens/users/user_widget/order_placed_widget.dart';
 import 'package:flutter/material.dart';

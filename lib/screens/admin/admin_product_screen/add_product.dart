@@ -1,8 +1,9 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'dart:convert';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drawer/screens/admin/admin_home.dart';
-import 'package:drawer/screens/admin/admin_product_screen/admin_products_screen.dart';
 import 'package:drawer/services/validation_services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -198,12 +199,12 @@ class _AddProductState extends State<AddProduct> {
   Future<void> addData(BuildContext context) async {
     try {
       if (controller.categoryvalue == null ||
-          controller.categoryvalue!.isEmpty) {
+          controller.categoryvalue.isEmpty) {
         showError("Please select a Category");
         return;
       }
       if (controller.subcategoryvalue == null ||
-          controller.subcategoryvalue!.isEmpty) {
+          controller.subcategoryvalue.isEmpty) {
         showError("Please select a Sub Category");
         return;
       }

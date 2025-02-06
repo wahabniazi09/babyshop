@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:drawer/consts/consts.dart';
 import 'package:drawer/consts/styles.dart';
 import 'package:drawer/screens/users/login_register/loginpage.dart';
-import 'package:drawer/screens/users/profile_Screen/profile_screen.dart';
 import 'package:drawer/services/product_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';

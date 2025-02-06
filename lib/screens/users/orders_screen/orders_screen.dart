@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drawer/consts/consts.dart';
-import 'package:drawer/screens/users/orders_screen/components/orders_status.dart';
 import 'package:drawer/screens/users/orders_screen/order_details.dart';
 import 'package:drawer/services/firestore_services.dart';
 import 'package:flutter/material.dart';
