@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drawer/screens/users/Category_Screen.dart/components/item_details.dart';
+import 'package:drawer/screens/users/Home_Screen/component/all_product.dart';
 import 'package:drawer/screens/users/Home_Screen/component/feature_button.dart';
 import 'package:drawer/screens/users/Home_Screen/component/seach_screen.dart';
 import 'package:drawer/screens/users/Home_Screen/flash_sale.dart';
@@ -136,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             featureButton(
                               context: context,
-                              icon: categoryIcon2[index],
+                              icon: categorylisticon12[index],
                               title: categoriesList12[index],
                             ),
                             const SizedBox(
@@ -144,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             featureButton(
                               context: context,
-                              icon: categoryIcon1[index],
+                              icon: categorylisticon123[index],
                               title: categoriesList123[index],
                             )
                           ],
@@ -277,98 +278,127 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 20,
             ),
-            Container(
-              padding: const EdgeInsets.all(12),
-              width: double.infinity,
-              decoration: const BoxDecoration(color: Colors.white),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'All Products',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  StreamBuilder<QuerySnapshot>(
-                    stream: firestoreService.getAllProducts(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                      if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                        return const Center(
-                            child: Text("No products available"));
-                      }
+           Container(
+  padding: const EdgeInsets.all(12),
+  width: double.infinity,
+  decoration: const BoxDecoration(color: Colors.white),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      const Text(
+        'All Products',
+        style: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+          fontSize: 18,
+        ),
+      ),
+      const SizedBox(height: 10),
+      StreamBuilder<QuerySnapshot>(
+        stream: firestoreService.getAllProducts(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+            return const Center(child: Text("No products available"));
+          }
 
-                      var allProducts = snapshot.data!.docs;
+          var allProducts = snapshot.data!.docs;
+          var displayedProducts = allProducts.take(8).toList(); // Show only 8 products
 
-                      return GridView.builder(
-                        padding: const EdgeInsets.all(8),
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: allProducts.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 8,
-                          crossAxisSpacing: 8,
-                          mainAxisExtent: 300,
+          return Column(
+            children: [
+              GridView.builder(
+                padding: const EdgeInsets.all(8),
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: displayedProducts.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8,
+                  mainAxisExtent: 300,
+                ),
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ItemDetails(
+                            title: "${displayedProducts[index]['p_name']}",
+                            data: displayedProducts[index],
+                          ),
                         ),
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              // Navigate to product details page
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ItemDetails(
-                                          title:
-                                              "${allProducts[index]['p_name']}",
-                                          data: allProducts[index],
-                                        )),
-                              );
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                border: Border.all(color: Colors.grey.shade300),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Image.memory(
-                                      base64Decode(
-                                          allProducts[index]['p_image']),
-                                      width: MediaQuery.of(context).size.width,
-                                      height: 200,
-                                      fit: BoxFit.fill),
-                                  const Spacer(),
-                                  Text("${allProducts[index]['p_name']}",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.black87)),
-                                  const SizedBox(height: 5),
-                                  Text("Rs: ${allProducts[index]['p_price']}",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.red)),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
                       );
                     },
-                  ),
-                ],
+                    child: Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.grey.shade300),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Image.memory(
+                            base64Decode(displayedProducts[index]['p_image']),
+                            width: MediaQuery.of(context).size.width,
+                            height: 200,
+                            fit: BoxFit.fill,
+                          ),
+                          const Spacer(),
+                          Text(
+                            "${displayedProducts[index]['p_name']}",
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w600, color: Colors.black87),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            "Rs: ${displayedProducts[index]['p_price']}",
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, color: Colors.red),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
               ),
-            ),
+              if (allProducts.length > 8) // Show the button only if more than 8 products exist
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AllProductsPage(
+                            productStream: firestoreService.getAllProducts(),
+                          ),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor:Colors.orange[900],
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 12),
+                    ),
+                    child: const Text(
+                      "View All",
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                  ),
+                ),
+            ],
+          );
+        },
+      ),
+    ],
+  ),
+),
           ],
         )),
       ),

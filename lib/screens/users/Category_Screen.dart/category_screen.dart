@@ -66,10 +66,10 @@ class CategoryScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Image.asset(
-                        imgS1,
+                        categorylisticon[index],
                         width: 120,
                         height: 100,
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fill,
                       ),
                       const Spacer(),
                       Center(

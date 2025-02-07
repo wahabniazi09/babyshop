@@ -21,23 +21,39 @@ const categoriesList = [
   'Health & Safety'
 ];
 
+const categorylisticon = [
+  babyclothing,
+  babytoys,
+  babyessential,
+  nursury,
+  travelandgear,
+  healthandsafty
+];
+
+const categorylisticon12 = [
+  babyclothing,
+  babytoys,
+  babyessential,
+  nursury,
+  travelandgear,
+  healthandsafty
+];
+
+const categorylisticon123 = [
+  nursury,
+  travelandgear,
+  healthandsafty
+];
 const categoriesList12 = [
   'Baby Clothing',
   'Baby Toys',
   "Baby Essentials",
 ];
 
-const categoriesList123 = [
- 'Nursery',
-  'Travel & Gear',
-  'Health & Safety' 
-];
-
+const categoriesList123 = ['Nursery', 'Travel & Gear', 'Health & Safety'];
 
 const categoryIcon1 = [imgS1, imgS1, imgS1];
 const categoryIcon2 = [imgS1, imgS1, imgS1];
-
-
 
 const paymentMethoodList = [imgcod, imgjaazcash, imgeasypaisa];
 const paymentMethood = ['Cash On Delivery', 'Jaaz Cash', 'Easy Paisa'];
@@ -45,6 +61,5 @@ const paymentMethood = ['Cash On Delivery', 'Jaaz Cash', 'Easy Paisa'];
 const profileButtonList = ['My Orders', 'My Wishlist'];
 const profileButtonIcon = [icOrders, icHeart];
 
-
 const AdminButtonList = ['Shop Setting', 'All Users'];
- const AdminButtonIcon = [Icons.settings, Icons.verified_user];
+const AdminButtonIcon = [Icons.settings, Icons.verified_user];

@@ -64,7 +64,8 @@ class _CategoriesDetailsState extends State<CategoriesDetails> {
                               CircularProgressIndicator()) // Show a loader while loading
                       : Container(
                           padding: const EdgeInsets.all(12),
-                          child: Column(
+                          child: 
+                          Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SingleChildScrollView(

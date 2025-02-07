@@ -45,7 +45,7 @@ class AdminProductDetails extends StatelessWidget {
                             return Image.memory(
                               base64Decode(data['p_image']),
                               width: double.infinity,
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fill,
                             );
                           },
                         ),

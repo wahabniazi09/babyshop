@@ -78,46 +78,42 @@ class firestoreService {
     return res;
   }
 
-  static Future<List<int>> getAdminCount() async {
-    var res = await Future.wait([
-      // Orders Count
-      firestore
-          .collection(ordersCollection)
-          .get()
-          .then((value) => value.docs.length),
+static Future<List<int>> getAdminCount() async {
+  var firestore = FirebaseFirestore.instance;
 
-      // Wishlist Count
-      firestore
-          .collection(productsCollection)
-          .where('p_wishlist', isEqualTo: true)
-          .get()
-          .then((value) => value.docs.length),
+  var res = await Future.wait([
+    // Orders Count
+    firestore.collection(ordersCollection).get().then((value) => value.docs.length),
 
-      // Products Count
-      firestore
-          .collection(productsCollection)
-          .get()
-          .then((value) => value.docs.length),
-
-      // Total Sales Calculation (Summing totalAmount from all orders)
-      firestore.collection(ordersCollection).get().then((value) {
-        int totalSales = 0;
-        for (var doc in value.docs) {
-          // ignore: unnecessary_cast
-          Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-
-          // Ensure totalAmount exists and is a number
-          if (data.containsKey('total_amount') && data['total_amount'] is num) {
-            totalSales += (data['total_amount'] as num).toInt();
-          }
+    firestore.collection(productsCollection).get().then((value) {
+      int totalWishlistCount = 0;
+      for (var doc in value.docs) {
+        var data = doc.data() as Map<String, dynamic>;
+        if (data.containsKey('p_wishlist') && data['p_wishlist'] is List) {
+          totalWishlistCount += (data['p_wishlist'] as List).length;
         }
-        return totalSales;
-      }),
-    ]);
+      }
+      return totalWishlistCount;
+    }),
 
-    // ignore: unnecessary_cast
-    return res.map((e) => e as int).toList(); // Ensure all results are int
-  }
+    // Products Count
+    firestore.collection(productsCollection).get().then((value) => value.docs.length),
+
+    // Total Sales Calculation (Summing totalAmount from all orders)
+    firestore.collection(ordersCollection).get().then((value) {
+      int totalSales = 0;
+      for (var doc in value.docs) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        if (data.containsKey('total_amount') && data['total_amount'] is num) {
+          totalSales += (data['total_amount'] as num).toInt();
+        }
+      }
+      return totalSales;
+    }),
+  ]);
+
+  return res.map((e) => e as int).toList(); // Ensure all results are int
+}
 
   static Stream<QuerySnapshot> getAllProducts() {
     return FirebaseFirestore.instance

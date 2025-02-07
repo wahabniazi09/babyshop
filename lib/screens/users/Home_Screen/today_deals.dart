@@ -16,76 +16,78 @@ class TodayDeals extends StatelessWidget {
       appBar: AppBar(
           title: const Text("Today Deal's",
               style: TextStyle(color: fontGrey, fontFamily: bold))),
-      body: Padding(
-        padding: const EdgeInsets.all(12),
-        child: FutureBuilder<QuerySnapshot>(
-          future: firestoreService.gettodaydealsProducts(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-              return const Center(child: Text("No products available"));
-            }
-
-            var allProducts = snapshot.data!.docs;
-
-            return GridView.builder(
-              padding: const EdgeInsets.all(8),
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: allProducts.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 8,
-                crossAxisSpacing: 8,
-                mainAxisExtent: 300,
-              ),
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    // Navigate to product details page
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ItemDetails(
-                                title: "${allProducts[index]['p_name']}",
-                                data: allProducts[index],
-                              )),
-                    );
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(color: Colors.grey.shade300),
-                      borderRadius: BorderRadius.circular(5),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: FutureBuilder<QuerySnapshot>(
+            future: firestoreService.gettodaydealsProducts(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                return const Center(child: Text("No products available"));
+              }
+        
+              var allProducts = snapshot.data!.docs;
+        
+              return GridView.builder(
+                padding: const EdgeInsets.all(8),
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: allProducts.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8,
+                  mainAxisExtent: 300,
+                ),
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      // Navigate to product details page
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ItemDetails(
+                                  title: "${allProducts[index]['p_name']}",
+                                  data: allProducts[index],
+                                )),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.grey.shade300),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Image.memory(
+                              base64Decode(allProducts[index]['p_image']),
+                              width: MediaQuery.of(context).size.width,
+                              height: 200,
+                              fit: BoxFit.fill),
+                          const Spacer(),
+                          Text("${allProducts[index]['p_name']}",
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black87)),
+                          const SizedBox(height: 5),
+                          Text("Rs: ${allProducts[index]['p_price']}",
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red)),
+                        ],
+                      ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image.memory(
-                            base64Decode(allProducts[index]['p_image']),
-                            width: MediaQuery.of(context).size.width,
-                            height: 200,
-                            fit: BoxFit.fill),
-                        const Spacer(),
-                        Text("${allProducts[index]['p_name']}",
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87)),
-                        const SizedBox(height: 5),
-                        Text("Rs: ${allProducts[index]['p_price']}",
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.red)),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            );
-          },
+                  );
+                },
+              );
+            },
+          ),
         ),
       ),
     );

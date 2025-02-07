@@ -29,7 +29,7 @@ Widget featureButton({
           Image.asset(
             icon,
             width: 60,
-            fit: BoxFit.cover,
+            fit: BoxFit.fill,
           ),
           const SizedBox(width: 10), // Fixed spacing (changed height → width)
           Text(

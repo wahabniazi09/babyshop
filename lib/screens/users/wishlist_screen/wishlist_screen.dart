@@ -64,7 +64,7 @@ class WishlistScreen extends StatelessWidget {
                         ),
                         child: ListTile(
                           leading: Image.memory(
-                              base64Decode(data[index]['p_image'][0])),
+                              base64Decode(data[index]['p_image'])),
                           title: Text(
                             "${data[index]['p_name']} x[${data[index]['p_quantity']}]",
                             style: const TextStyle(
