@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_cast
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drawer/consts/consts.dart';
 
