@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drawer/consts/consts.dart';
 import 'package:drawer/screens/admin/admin_home.dart';
+import 'package:drawer/screens/users/login_register/forgetpassword.dart';
 import 'package:drawer/screens/users/login_register/registerpage.dart';
 import 'package:drawer/screens/users/Home_Screen/home.dart';
 import 'package:drawer/services/auth_hepler.dart';
@@ -119,6 +120,21 @@ class _LoginPageState extends State<LoginPage> {
                         label: 'Password',
                         ispass: true,
                         controller: passwordController),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Forgetpassword()));
+                        },
+                        child: const Text(
+                          "Forgot Password?",
+                          style: TextStyle(color: Colors.blue),
+                        ),
+                      ),
+                    ),
                     const SizedBox(height: 20),
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
@@ -135,21 +151,6 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const SizedBox(height: 10),
                     // Forgot Password Button
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: () {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => const ForgetPassword()));
-                        },
-                        child: const Text(
-                          "Forgot Password?",
-                          style: TextStyle(color: Colors.blue),
-                        ),
-                      ),
-                    ),
                   ],
                 ),
                 const SizedBox(height: 20),
@@ -177,21 +178,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(
-                        2,
-                        (index) => Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: CircleAvatar(
-                                radius: 30,
-                                backgroundColor: lightGrey,
-                                child: Image.asset(
-                                  socialIconLists[index],
-                                  width: 30,
-                                ),
-                              ),
-                            ))),
               ],
             ),
           ),

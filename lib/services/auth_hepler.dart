@@ -69,6 +69,15 @@ class AuthenticationHelper {
     }
   }
 
+  Future<void> resetPassword({required String email}) async {
+  try {
+    await auth.sendPasswordResetEmail(email: email);
+  } on FirebaseAuthException catch (e) {
+    print("Error: ${e.message}");
+  }
+}
+
+
   changeAuthPassword({email, password, newpassword}) async {
     final cred = EmailAuthProvider.credential(email: email, password: password);
     await currentUser!.reauthenticateWithCredential(cred).then((value) {
