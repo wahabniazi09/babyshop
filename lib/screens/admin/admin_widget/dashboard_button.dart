@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 Widget dashboardButton(context, {title, count, icon}) {
   return Container(
-    width: MediaQuery.of(context).size.width * 0.3,
+    width: MediaQuery.of(context).size.width * 0.4,
     height: 80,
     padding: const EdgeInsets.all(8),
     decoration: BoxDecoration(

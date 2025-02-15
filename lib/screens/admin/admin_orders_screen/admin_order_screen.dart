@@ -118,7 +118,7 @@ class AdminOrderScreen extends StatelessWidget {
                                       onPressed: () {
                                         controller.removeOrders(data[index].id);
                                       },
-                                      child: const Text('Cancel Order'),
+                                      child: const Text('Cancel'),
                                     ),
                                     const SizedBox(width: 10),
                                     Text(

@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
       child: Container(
         padding: const EdgeInsets.all(12),
         color: lightGrey,
@@ -88,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 10), // Adds spacing between buttons
                   child: homeButton(
-                    width: 200,
+                    width: 150,
                     height: 140,
                     iconPath: index == 0
                         ? icTodaysDeal

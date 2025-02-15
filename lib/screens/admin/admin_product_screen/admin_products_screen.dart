@@ -98,7 +98,7 @@ class _AdminProductsScreenState extends State<AdminProductsScreen> {
                       },
                       leading: Image.memory(
                         base64Decode(allProducts[index]['p_image']),
-                        width: 150,
+                        width: 120,
                         height: 150,
                         fit: BoxFit.cover,
                       ),
