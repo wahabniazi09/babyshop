@@ -35,11 +35,11 @@ class _HomeState extends State<Home> {
       onWillPop: () async {
         if (currentNavIndex != 0) {
           setState(() {
-            currentNavIndex = 0;  // Navigate back to Home screen when back button is pressed
+            currentNavIndex = 0;  
           });
-          return false;  // Prevent default back behavior
+          return false; 
         }
-        return true;  // Allow exiting the app when on the Home screen
+        return true; 
       },
       child: Scaffold(
         body: Column(

@@ -12,44 +12,61 @@ class AdminHome extends StatefulWidget {
 }
 
 class _AdminHomeState extends State<AdminHome> {
-   var navListItem = [
-     BottomNavigationBarItem(icon: Image.asset(icHome,width: 25,color: Colors.black,), label: 'Dashboard'),
-     BottomNavigationBarItem(icon: Image.asset(icProducts,width: 25), label: 'Products'),
-     BottomNavigationBarItem(icon: Image.asset(icOrders,width: 25), label: 'Orders'),
-     BottomNavigationBarItem(icon: Image.asset(icGenreralSettings,width: 25), label: 'Settings'),
+  var navListItem = [
+    BottomNavigationBarItem(
+        icon: Image.asset(
+          icHome,
+          width: 25,
+          color: Colors.black,
+        ),
+        label: 'Dashboard'),
+    BottomNavigationBarItem(
+        icon: Image.asset(icProducts, width: 25), label: 'Products'),
+    BottomNavigationBarItem(
+        icon: Image.asset(icOrders, width: 25), label: 'Orders'),
+    BottomNavigationBarItem(
+        icon: Image.asset(icGenreralSettings, width: 25), label: 'Settings'),
   ];
 
   var navBody = [
-   AdminHomeScreen(),
-   AdminProductsScreen(),
-   AdminOrderScreen(),
-   AdminSettingsScreen()
+    AdminHomeScreen(),
+    AdminProductsScreen(),
+    AdminOrderScreen(),
+    AdminSettingsScreen()
   ];
 
   int currentNavIndex = 0;
-  
- 
-  
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Expanded(child: navBody.elementAt(currentNavIndex)),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentNavIndex,
-        items: navListItem,
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
-        selectedItemColor: Colors.red,
-        onTap: (value) {
-          setState(() {
-          currentNavIndex= value;
-          });
+    return WillPopScope(
+        onWillPop: () async {
+          if (currentNavIndex != 0) {
+            setState(() {
+              currentNavIndex = 0;
+            });
+            return false;
+          }
+          return true;
         },
-      ),
-    );
+        child: Scaffold(
+          body: Column(
+            children: [
+              Expanded(child: navBody.elementAt(currentNavIndex)),
+            ],
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: currentNavIndex,
+            items: navListItem,
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: Colors.white,
+            selectedItemColor: Colors.red,
+            onTap: (value) {
+              setState(() {
+                currentNavIndex = value;
+              });
+            },
+          ),
+        ));
   }
 }
