@@ -1,18 +1,18 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:drawer/consts/consts.dart';
-import 'package:drawer/screens/users/Home_Screen/home.dart';
-import 'package:drawer/screens/users/login_register/loginpage.dart';
-import 'package:drawer/screens/users/login_register/registerpage.dart';
-import 'package:drawer/screens/users/orders_screen/orders_screen.dart';
-import 'package:drawer/screens/users/profile_Screen/component/card_details.dart';
-import 'package:drawer/screens/users/profile_Screen/component/edit_detail.dart';
-import 'package:drawer/screens/users/user_widget/beveled_button.dart';
-import 'package:drawer/screens/users/user_widget/lish.dart';
-import 'package:drawer/services/auth_hepler.dart';
-import 'package:drawer/services/firestore_services.dart';
-import 'package:drawer/screens/users/user_widget/bg_widget.dart';
-import 'package:drawer/screens/users/wishlist_screen/wishlist_screen.dart';
+import 'package:BabyShop/consts/consts.dart';
+import 'package:BabyShop/screens/users/Home_Screen/home.dart';
+import 'package:BabyShop/screens/users/login_register/loginpage.dart';
+import 'package:BabyShop/screens/users/login_register/registerpage.dart';
+import 'package:BabyShop/screens/users/orders_screen/orders_screen.dart';
+import 'package:BabyShop/screens/users/profile_Screen/component/card_details.dart';
+import 'package:BabyShop/screens/users/profile_Screen/component/edit_detail.dart';
+import 'package:BabyShop/screens/users/user_widget/beveled_button.dart';
+import 'package:BabyShop/screens/users/user_widget/lish.dart';
+import 'package:BabyShop/services/auth_hepler.dart';
+import 'package:BabyShop/services/firestore_services.dart';
+import 'package:BabyShop/screens/users/user_widget/bg_widget.dart';
+import 'package:BabyShop/screens/users/wishlist_screen/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatefulWidget {

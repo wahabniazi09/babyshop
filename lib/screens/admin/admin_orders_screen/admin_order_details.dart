@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:drawer/consts/colors.dart';
-import 'package:drawer/consts/consts.dart';
-import 'package:drawer/screens/users/user_widget/beveled_button.dart';
-import 'package:drawer/screens/users/user_widget/order_placed_widget.dart';
+import 'package:BabyShop/consts/colors.dart';
+import 'package:BabyShop/consts/consts.dart';
+import 'package:BabyShop/screens/users/user_widget/beveled_button.dart';
+import 'package:BabyShop/screens/users/user_widget/order_placed_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 

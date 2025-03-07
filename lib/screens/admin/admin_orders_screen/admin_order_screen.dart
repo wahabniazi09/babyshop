@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:drawer/screens/admin/admin_orders_screen/admin_order_details.dart';
-import 'package:drawer/services/adminproduct_services.dart';
-import 'package:drawer/services/firestore_services.dart';
+import 'package:BabyShop/screens/admin/admin_orders_screen/admin_order_details.dart';
+import 'package:BabyShop/services/adminproduct_services.dart';
+import 'package:BabyShop/services/firestore_services.dart';
 import 'package:flutter/material.dart';
-import 'package:drawer/consts/colors.dart';
-import 'package:drawer/consts/styles.dart';
+import 'package:BabyShop/consts/colors.dart';
+import 'package:BabyShop/consts/styles.dart';
 import 'package:intl/intl.dart' as intl;
 
 class AdminOrderScreen extends StatelessWidget {

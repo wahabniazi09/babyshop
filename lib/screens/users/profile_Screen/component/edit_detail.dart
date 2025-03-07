@@ -2,12 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:drawer/consts/colors.dart';
-import 'package:drawer/consts/firebase_consts.dart';
-import 'package:drawer/services/auth_hepler.dart';
-import 'package:drawer/screens/users/user_widget/beveled_button.dart';
-import 'package:drawer/screens/users/user_widget/bg_widget.dart';
-import 'package:drawer/screens/users/user_widget/custom_form.dart';
+import 'package:BabyShop/consts/colors.dart';
+import 'package:BabyShop/consts/firebase_consts.dart';
+import 'package:BabyShop/services/auth_hepler.dart';
+import 'package:BabyShop/screens/users/user_widget/beveled_button.dart';
+import 'package:BabyShop/screens/users/user_widget/bg_widget.dart';
+import 'package:BabyShop/screens/users/user_widget/custom_form.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';

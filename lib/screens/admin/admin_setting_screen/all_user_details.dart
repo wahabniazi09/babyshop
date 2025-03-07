@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:drawer/consts/colors.dart';
-import 'package:drawer/consts/consts.dart';
-import 'package:drawer/services/firestore_services.dart';
+import 'package:BabyShop/consts/colors.dart';
+import 'package:BabyShop/consts/consts.dart';
+import 'package:BabyShop/services/firestore_services.dart';
 
 class AllUserDetails extends StatelessWidget {
   const AllUserDetails({super.key});

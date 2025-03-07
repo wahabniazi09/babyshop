@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:drawer/consts/colors.dart';
-import 'package:drawer/screens/users/Category_Screen.dart/components/item_details.dart';
-import 'package:drawer/services/firestore_services.dart';
+import 'package:BabyShop/consts/colors.dart';
+import 'package:BabyShop/screens/users/Category_Screen.dart/components/item_details.dart';
+import 'package:BabyShop/services/firestore_services.dart';
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {

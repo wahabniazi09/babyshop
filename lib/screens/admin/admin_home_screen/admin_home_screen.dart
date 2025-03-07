@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:drawer/consts/consts.dart';
-import 'package:drawer/screens/admin/admin_product_screen/admin_product_details.dart';
-import 'package:drawer/screens/admin/admin_widget/dashboard_button.dart';
-import 'package:drawer/services/firestore_services.dart';
+import 'package:BabyShop/consts/consts.dart';
+import 'package:BabyShop/screens/admin/admin_product_screen/admin_product_details.dart';
+import 'package:BabyShop/screens/admin/admin_widget/dashboard_button.dart';
+import 'package:BabyShop/services/firestore_services.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 

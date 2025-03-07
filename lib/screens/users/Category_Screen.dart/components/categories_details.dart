@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:drawer/consts/consts.dart';
-import 'package:drawer/screens/users/Category_Screen.dart/components/item_details.dart';
-import 'package:drawer/services/firestore_services.dart';
-import 'package:drawer/services/product_services.dart';
-import 'package:drawer/screens/users/user_widget/bg_widget.dart';
+import 'package:BabyShop/consts/consts.dart';
+import 'package:BabyShop/screens/users/Category_Screen.dart/components/item_details.dart';
+import 'package:BabyShop/services/firestore_services.dart';
+import 'package:BabyShop/services/product_services.dart';
+import 'package:BabyShop/screens/users/user_widget/bg_widget.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesDetails extends StatefulWidget {

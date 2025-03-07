@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:drawer/screens/users/Category_Screen.dart/components/item_details.dart';
+import 'package:BabyShop/screens/users/Category_Screen.dart/components/item_details.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 

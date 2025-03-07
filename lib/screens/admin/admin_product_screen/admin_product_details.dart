@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:drawer/consts/styles.dart';
+import 'package:BabyShop/consts/styles.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
-import 'package:drawer/consts/colors.dart';
+import 'package:BabyShop/consts/colors.dart';
 
 class AdminProductDetails extends StatelessWidget {
   final String? title;

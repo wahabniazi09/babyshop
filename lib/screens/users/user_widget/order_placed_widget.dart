@@ -1,5 +1,5 @@
-import 'package:drawer/consts/colors.dart';
-import 'package:drawer/consts/styles.dart';
+import 'package:BabyShop/consts/colors.dart';
+import 'package:BabyShop/consts/styles.dart';
 import 'package:flutter/material.dart';
 
 Widget orderPlaceDetails({title1,title2,d1,d2}) {

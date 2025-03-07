@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-import 'package:drawer/consts/colors.dart';
-import 'package:drawer/consts/consts.dart';
-import 'package:drawer/consts/styles.dart';
-import 'package:drawer/screens/admin/admin_product_screen/add_product.dart';
-import 'package:drawer/screens/admin/admin_product_screen/admin_product_details.dart';
-import 'package:drawer/screens/admin/admin_product_screen/update_product.dart';
-import 'package:drawer/services/adminproduct_services.dart';
-import 'package:drawer/services/firestore_services.dart';
+import 'package:BabyShop/consts/colors.dart';
+import 'package:BabyShop/consts/consts.dart';
+import 'package:BabyShop/consts/styles.dart';
+import 'package:BabyShop/screens/admin/admin_product_screen/add_product.dart';
+import 'package:BabyShop/screens/admin/admin_product_screen/admin_product_details.dart';
+import 'package:BabyShop/screens/admin/admin_product_screen/update_product.dart';
+import 'package:BabyShop/services/adminproduct_services.dart';
+import 'package:BabyShop/services/firestore_services.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 

@@ -1,5 +1,5 @@
-import 'package:drawer/consts/consts.dart';
-import 'package:drawer/screens/users/Category_Screen.dart/components/categories_details.dart';
+import 'package:BabyShop/consts/consts.dart';
+import 'package:BabyShop/screens/users/Category_Screen.dart/components/categories_details.dart';
 import 'package:flutter/material.dart';
 
 Widget featureButton({

@@ -1,10 +1,10 @@
-import 'package:drawer/consts/colors.dart';
-import 'package:drawer/consts/styles.dart';
-import 'package:drawer/screens/users/orders_screen/components/orders_status.dart';
-import 'package:drawer/screens/users/orders_screen/orders_screen.dart';
-import 'package:drawer/screens/users/user_widget/beveled_button.dart';
-import 'package:drawer/screens/users/user_widget/order_placed_widget.dart';
-import 'package:drawer/services/adminproduct_services.dart';
+import 'package:BabyShop/consts/colors.dart';
+import 'package:BabyShop/consts/styles.dart';
+import 'package:BabyShop/screens/users/orders_screen/components/orders_status.dart';
+import 'package:BabyShop/screens/users/orders_screen/orders_screen.dart';
+import 'package:BabyShop/screens/users/user_widget/beveled_button.dart';
+import 'package:BabyShop/screens/users/user_widget/order_placed_widget.dart';
+import 'package:BabyShop/services/adminproduct_services.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 

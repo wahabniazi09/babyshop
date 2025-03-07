@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:drawer/consts/consts.dart';
-import 'package:drawer/screens/admin/admin_home.dart';
-import 'package:drawer/screens/users/Home_Screen/home.dart';
+import 'package:BabyShop/consts/consts.dart';
+import 'package:BabyShop/screens/admin/admin_home.dart';
+import 'package:BabyShop/screens/users/Home_Screen/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

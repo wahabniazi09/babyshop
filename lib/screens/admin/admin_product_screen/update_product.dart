@@ -5,12 +5,12 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:drawer/consts/consts.dart';
-import 'package:drawer/screens/admin/admin_home.dart';
-import 'package:drawer/screens/admin/admin_product_screen/component/product_dropdown.dart';
-import 'package:drawer/screens/admin/admin_widget/admin_custom_form.dart';
-import 'package:drawer/services/adminproduct_services.dart';
-import 'package:drawer/services/validation_services.dart';
+import 'package:BabyShop/consts/consts.dart';
+import 'package:BabyShop/screens/admin/admin_home.dart';
+import 'package:BabyShop/screens/admin/admin_product_screen/component/product_dropdown.dart';
+import 'package:BabyShop/screens/admin/admin_widget/admin_custom_form.dart';
+import 'package:BabyShop/services/adminproduct_services.dart';
+import 'package:BabyShop/services/validation_services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';

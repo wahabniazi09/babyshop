@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:drawer/consts/consts.dart';
-import 'package:drawer/services/firestore_services.dart';
+import 'package:BabyShop/consts/consts.dart';
+import 'package:BabyShop/services/firestore_services.dart';
 import 'package:flutter/material.dart';
 
 class WishlistScreen extends StatelessWidget {

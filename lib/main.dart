@@ -1,6 +1,6 @@
-import 'package:drawer/consts/consts.dart';
-import 'package:drawer/firebase_options.dart';
-import 'package:drawer/screens/users/start_screen/splash_screen.dart';
+import 'package:BabyShop/consts/consts.dart';
+import 'package:BabyShop/firebase_options.dart';
+import 'package:BabyShop/screens/users/start_screen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 

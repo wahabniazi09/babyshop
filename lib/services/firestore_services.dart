@@ -1,7 +1,7 @@
 // ignore_for_file: unnecessary_cast
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:drawer/consts/consts.dart';
+import 'package:BabyShop/consts/consts.dart';
 
 class firestoreService {
   //get user details

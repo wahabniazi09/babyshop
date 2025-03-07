@@ -1,7 +1,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:drawer/consts/consts.dart';
-import 'package:drawer/model/category_model.dart';
+import 'package:BabyShop/consts/consts.dart';
+import 'package:BabyShop/model/category_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

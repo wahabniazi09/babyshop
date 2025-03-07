@@ -1,5 +1,5 @@
-import 'package:drawer/consts/colors.dart';
-import 'package:drawer/consts/styles.dart';
+import 'package:BabyShop/consts/colors.dart';
+import 'package:BabyShop/consts/styles.dart';
 import 'package:flutter/material.dart';
 
 Widget cartDetails({height,width,String? count, String? title}) {

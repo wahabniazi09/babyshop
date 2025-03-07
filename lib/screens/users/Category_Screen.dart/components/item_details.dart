@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-import 'package:drawer/consts/consts.dart';
-import 'package:drawer/consts/styles.dart';
-import 'package:drawer/screens/users/login_register/loginpage.dart';
-import 'package:drawer/services/product_services.dart';
+import 'package:BabyShop/consts/consts.dart';
+import 'package:BabyShop/consts/styles.dart';
+import 'package:BabyShop/screens/users/login_register/loginpage.dart';
+import 'package:BabyShop/services/product_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
-import 'package:drawer/consts/colors.dart';
-import 'package:drawer/screens/users/user_widget/beveled_button.dart';
+import 'package:BabyShop/consts/colors.dart';
+import 'package:BabyShop/screens/users/user_widget/beveled_button.dart';
 
 class ItemDetails extends StatelessWidget {
   final String? title;

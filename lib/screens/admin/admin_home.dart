@@ -1,8 +1,8 @@
-import 'package:drawer/consts/consts.dart';
-import 'package:drawer/screens/admin/admin_home_screen/admin_home_screen.dart';
-import 'package:drawer/screens/admin/admin_orders_screen/admin_order_screen.dart';
-import 'package:drawer/screens/admin/admin_product_screen/admin_products_screen.dart';
-import 'package:drawer/screens/admin/admin_setting_screen/admin_settings_screen.dart';
+import 'package:BabyShop/consts/consts.dart';
+import 'package:BabyShop/screens/admin/admin_home_screen/admin_home_screen.dart';
+import 'package:BabyShop/screens/admin/admin_orders_screen/admin_order_screen.dart';
+import 'package:BabyShop/screens/admin/admin_product_screen/admin_products_screen.dart';
+import 'package:BabyShop/screens/admin/admin_setting_screen/admin_settings_screen.dart';
 import 'package:flutter/material.dart';
 
 class AdminHome extends StatefulWidget {
